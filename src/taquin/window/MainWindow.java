@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.CardLayout;
 
 import java.awt.event.ActionEvent;
 
@@ -13,11 +16,15 @@ import taquin.component.*;
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 
+	private static final String NUMBER_GRID = "NUMBER";
+	private static final String IMAGE_GRID = "IMAGE";
 	// private ImageTaquinGrid imageTaquinGrid;
 	// private GUITaquinGrid guiTaquinGrid;
 
-	public MainWindow(int w, int h, String name) {
+	JPanel imagePanel = new JPanel();
+	JPanel chiffrePanel = new JPanel();
 
+	public MainWindow(int w, int h, String name) {
 		this.setTitle(name);
 		this.setSize(w, h);
 		this.setLocationRelativeTo(null);
@@ -51,15 +58,15 @@ public class MainWindow extends JFrame {
 		JMenuItem itemImage = new JMenuItem("Mode image");
 		menuAffichage.add(itemImage);
 		//Evenement de l'item "mode image"
-		itemNewGame.addActionListener((ActionEvent e) -> {
-			ImageTaquinGrid imageTaquin = new ImageTaquinGrid();
+		itemImage.addActionListener((ActionEvent e) -> {
+			showTaquinGrid(IMAGE_GRID);
 		});
 
 		JMenuItem itemChiffre = new JMenuItem("Mode chiffres");
 		menuAffichage.add(itemChiffre);
 		//Evenement de l'item "mode chiffres"
-		itemNewGame.addActionListener((ActionEvent e) -> {
-			NumberTaquinGrid numberTaquin = new NumberTaquinGrid();
+		itemChiffre.addActionListener((ActionEvent e) -> {
+			showTaquinGrid(NUMBER_GRID);
 		});
 
 		menuBar.add(menuFichier);
@@ -69,6 +76,17 @@ public class MainWindow extends JFrame {
 	}
 
 	private void createMainUI() {
+			setLayout(new CardLayout());
+			//On ajoute l'ensemble des calques, un JPanel et son nom
+			this.add(imagePanel, IMAGE_GRID);
+			this.add(chiffrePanel, NUMBER_GRID);
+			chiffrePanel.setBackground(Color.ORANGE);
+			imagePanel.setBackground(Color.RED);
+	}
+
+	private void showTaquinGrid(String gridType) {
+		CardLayout cl = (CardLayout)(getContentPane().getLayout());
+		cl.show(getContentPane(), gridType);
 	}
 
 
