@@ -10,8 +10,8 @@ public class NewGameDialog extends AbstractDialog {
 	private JTextField widthTextField;
 	private JTextField heightTextField;
 
-	private int width;
-	private int height;
+	private Integer widthSelected;
+	private Integer heightSelected;
 
 	public NewGameDialog(JFrame parent) {
 		super(parent, "Nouvelle partie");
@@ -51,28 +51,29 @@ public class NewGameDialog extends AbstractDialog {
 
 	@Override
 	protected ActionListener getValidButtonEventHandler() {
-		return new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				NewGameDialog.this.dispose();
+		return (ActionEvent e) -> {
+			try {
+				this.widthSelected = Integer.parseInt(widthTextField.getText());
+			} catch(NumberFormatException ex) {
+				this.widthSelected = null;
 			}
+
+			try {
+				this.heightSelected = Integer.parseInt(heightTextField.getText());
+			} catch(NumberFormatException ex) {
+				this.heightSelected = null;
+			}
+
+			NewGameDialog.this.dispose();
 		};
 	}
 
 	public Integer getSelectedWidth() {
-		try {
-			return Integer.parseInt(widthTextField.getText());
-		} catch(NumberFormatException e) {
-			return null;
-		}
+		return this.widthSelected;
 	}
 
 	public Integer getSelectedHeight() {
-		try {
-			return Integer.parseInt(heightTextField.getText());
-		} catch(NumberFormatException e) {
-			return null;
-		}
+		return this.heightSelected;
 	}
 
 }

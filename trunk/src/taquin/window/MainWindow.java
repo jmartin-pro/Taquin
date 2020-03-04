@@ -44,8 +44,8 @@ public class MainWindow extends JFrame {
 		//Evenement de l'item "nouvele partie"
 		itemNewGame.addActionListener((ActionEvent e) -> {
 			NewGameDialog dialog = new NewGameDialog(this);
-			int width = dialog.getSelectedWidth();
-			int heigth = dialog.getSelectedHeight();
+			Integer width = dialog.getSelectedWidth();
+			Integer heigth = dialog.getSelectedHeight();
 		});
 
 		JMenuItem itemImage = new JMenuItem("Mode image");
