@@ -53,10 +53,10 @@ public class TaquinGrid implements TaquinGridObservable {
 
 	/**
 	 * @param x
-	 * @param
+	 * @param y
 	 * @return int
 	 */
-	public int getSquare(int x, int y a) {
+	public int getSquare(int x, int y) {
 		// TODO Auto-generated method stub
 	}
 
