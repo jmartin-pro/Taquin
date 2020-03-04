@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
+@SuppressWarnings("serial")
 public class NewGameDialog extends AbstractDialog {
 
 	private JTextField widthTextField;

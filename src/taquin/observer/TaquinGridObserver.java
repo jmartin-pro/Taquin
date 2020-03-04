@@ -1,14 +1,10 @@
 package taquin.observer;
 
-public class TaquinGridObserver {
-
-	public TaquinGridObserver() {
-
-	}
+public interface TaquinGridObserver {
 
 	/**
 	 * @return void
 	 */
-	protected abstract void moved();
+	public void moved();
 
 }

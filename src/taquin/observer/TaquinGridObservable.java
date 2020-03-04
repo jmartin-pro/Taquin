@@ -1,26 +1,22 @@
 package taquin.observer;
 
-public class TaquinGridObservable {
-
-	public TaquinGridObservable() {
-
-	}
+public interface TaquinGridObservable {
 
 	/**
 	 * @param observer
 	 * @return void
 	 */
-	public abstract void addTaquinObserver(TaquinGridObserver observer);
+	public void addTaquinObserver(TaquinGridObserver observer);
 
 	/**
 	 * @param observer
 	 * @return void
 	 */
-	public abstract void removeTaquinObserver(TaquinGridObserver observer);
+	public void removeTaquinObserver(TaquinGridObserver observer);
 
 	/**
 	 * @return void
 	 */
-	public abstract void notifyMoved();
+	public void notifyMoved();
 
 }

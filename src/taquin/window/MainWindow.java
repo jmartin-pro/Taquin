@@ -5,7 +5,13 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-public class MainWindow extends JFrame{
+import java.awt.event.ActionEvent;
+
+import taquin.window.dialog.*;
+import taquin.component.*;
+
+@SuppressWarnings("serial")
+public class MainWindow extends JFrame {
 
 	// private ImageTaquinGrid imageTaquinGrid;
 	// private GUITaquinGrid guiTaquinGrid;
@@ -35,12 +41,26 @@ public class MainWindow extends JFrame{
 
 		JMenuItem itemNewGame = new JMenuItem("Nouvelle partie");
 		menuFichier.add(itemNewGame);
+		//Evenement de l'item "nouvele partie"
+		itemNewGame.addActionListener((ActionEvent e) -> {
+			NewGameDialog dialog = new NewGameDialog(this);
+			int width = dialog.getSelectedWidth();
+			int heigth = dialog.getSelectedHeight();
+		});
 
 		JMenuItem itemImage = new JMenuItem("Mode image");
 		menuAffichage.add(itemImage);
+		//Evenement de l'item "mode image"
+		itemNewGame.addActionListener((ActionEvent e) -> {
+			ImageTaquinGrid imageTaquin = new ImageTaquinGrid();
+		});
 
 		JMenuItem itemChiffre = new JMenuItem("Mode chiffres");
 		menuAffichage.add(itemChiffre);
+		//Evenement de l'item "mode chiffres"
+		itemNewGame.addActionListener((ActionEvent e) -> {
+			NumberTaquinGrid numberTaquin = new NumberTaquinGrid();
+		});
 
 		menuBar.add(menuFichier);
 		menuBar.add(menuAffichage);
@@ -50,5 +70,7 @@ public class MainWindow extends JFrame{
 
 	private void createMainUI() {
 	}
+
+
 
 }

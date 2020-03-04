@@ -5,6 +5,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 
+@SuppressWarnings("serial")
 public abstract class AbstractDialog extends JDialog {
 
 	/**
