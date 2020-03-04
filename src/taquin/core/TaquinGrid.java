@@ -4,6 +4,7 @@ import taquin.observer.TaquinGridObservable;
 import taquin.observer.TaquinGridObserver;
 
 import java.util.Random;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaquinGrid {
@@ -17,14 +18,16 @@ public class TaquinGrid {
 		this.width = width;
 		this.height = height;
 
+		taquinGridObserver = new ArrayList<>();
+
 		createGrid();
 	}
 
 	private void createGrid() {
 		this.grid = new int[this.width][this.height];
 
-		for(int y = 0; y <= this.height-1; y++) {
-			for(int x = 0; x <= this.width-1; x++) {
+		for(int y = 0 ; y < this.height ; y++) {
+			for(int x = 0 ; x < this.width ; x++) {
 				this.grid[x][y] = x+y*this.width+1;
 			}
 		}
@@ -38,11 +41,16 @@ public class TaquinGrid {
 	}
 
 	public void randomizeGrid() {
+		randomizeGrid(1000);
+	}
+
+	public void randomizeGrid(int n) {
 		Random r = new Random();
 
-		for (int i = 0; i <= 5000; i++) {
+		for (int i = 0; i < n; i++) {
 			int nbrRandom = r.nextInt(4);
 			Direction dir = null;
+
 			if (nbrRandom == 0) {
 				dir = Direction.HAUT;
 			} else if (nbrRandom == 1) {
@@ -52,25 +60,10 @@ public class TaquinGrid {
 			} else if (nbrRandom == 3) {
 				dir = Direction.GAUCHE;
 			}
-			
+
 			if (!move(dir)) {
 				i -= 1;
 			}
-		}
-
-		System.out.println();
-
-		for (int j = 0; j < this.height; j++) {
-			System.out.print(" | "); //affichage des numéros des lignes
-			for (int i = 0; i < this.width; i++) {
-				System.out.print(this.grid[i][j]+" | ");
-			}
-			System.out.println();
-			System.out.print(" ");
-			for (int i = 0; i < this.height; i++) {
-				System.out.print(" - -");
-			}
-		System.out.println();
 		}
 	}
 
@@ -107,12 +100,14 @@ public class TaquinGrid {
 			this.posXVide++;
 		}
 
+		notifyMoved();
+
 		return true;
 	}
 
 	public boolean finished() {
-		for(int y = 0; y <= this.height-1; y++) {
-			for(int x = 0; x <= this.width-1; x++) {
+		for(int y = 0 ; y < this.height ; y++) {
+			for(int x = 0 ; x < this.width ; x++) {
 				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == -1)
 					break;
 
@@ -121,16 +116,8 @@ public class TaquinGrid {
 				}
 			}
 		}
-		
-		return true;
-	}
 
-	public Integer getSquare(int x, int y) {
-		if (x > this.width-1 || y > this.height-1 || x < 0 || y < 0) {
-			return null;
-		}
-		
-		return grid[x][y];
+		return true;
 	}
 
 	/**
@@ -138,22 +125,39 @@ public class TaquinGrid {
 	 * @return void
 	 */
 	public void addTaquinObserver(TaquinGridObserver observer) {
-		// TODO Auto-generated method stub
+		taquinGridObserver.add(observer);
 	}
-	
+
 	/**
 	 * @param observer
 	 * @return void
 	 */
 	public void removeTaquinObserver(TaquinGridObserver observer) {
-		// TODO Auto-generated method stub
+		taquinGridObserver.remove(observer);
 	}
 
 	/**
 	 * @return void
 	 */
 	public void notifyMoved() {
-		// TODO Auto-generated method stub
+		for(TaquinGridObserver observer : taquinGridObserver) {
+			observer.moved();
+		}
 	}
 
+	public Integer getSquare(int x, int y) {
+		if (x > this.width-1 || y > this.height-1 || x < 0 || y < 0) {
+			return null;
+		}
+
+		return grid[x][y];
+	}
+
+	public int getHeight() {
+		return this.height;
+	}
+
+	public int getWidth() {
+		return this.width;
+	}
 }
