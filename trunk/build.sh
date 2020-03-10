@@ -7,33 +7,33 @@ zipName="taquin.zip"
 buildDir="build"
 deployDir="dist"
 javadocDir="doc"
-libsDir="libs"
+libsDir=""
 srcDir="src"
-testDir="test"
+testDir=""
 resDir="res"
-raportDir="rapport"
 
 projectBuilded=false
 
 # Test
 
 zipProject() {
+	echo '>zip'
 	cleanProject
 	createJavadoc
 	deployProject
-	echo '>zip'
 
-	rm -rf $buildDir
+	rm -rf "$buildDir"
 
 	tmpZipDir=/tmp/"$jarName"Zip
-	basedir=$(pwd)
-	mkdir $tmpZipDir
-	cp $srcDir $javadocDir $deployDir $testDir $resDirv $raportDir $0 $tmpZipDir -r
-	cd $tmpZipDir
-	zip $zipName *
-	mv $zipName "$basedir"
-	cd "$basedir"
-	rm -rf $tmpZipDir
+	mkdir "$tmpZipDir"
+	cp "$srcDir" "$javadocDir" "$deployDir" "$resDir" "rapport" "$0" "$tmpZipDir" -r
+	cd "$tmpZipDir"
+	zip "$zipName" *
+	mv "$zipName" "$BASE_DIR"
+	cd "$BASE_DIR"
+	rm -rf "$tmpZipDir"
+
+	projectBuilded=false
 }
 
 showCommand() {
@@ -48,12 +48,12 @@ buildProject() {
 
 	echo '>build'
 
-	if [ ! -d $buildDir ]; then
-		mkdir $buildDir
+	if [ ! -d "$buildDir" ]; then
+		mkdir "$buildDir"
 	fi
 
 	updateLibs
-	javac -cp "$srcDir$libs" -d $buildDir $srcDir/$(echo $javaMainClass | sed -E "s/\./\//g").java -Xlint
+	javac -cp "$srcDir$libs" -d "$buildDir" "$srcDir"/$(echo "$javaMainClass" | sed -E "s/\./\//g").java -Xlint
 
 	if [ ! $? -eq 0 ]; then
 		exit 2
@@ -65,20 +65,20 @@ buildProject() {
 cleanProject() {
 	echo '>clean'
 
-	if [ -d $buildDir ]; then
-		rm -rf $buildDir
+	if [ -d "$buildDir" ]; then
+		rm -rf "$buildDir"
 	fi
 
-	if [ -d $deployDir ]; then
-		rm -rf $deployDir
+	if [ -d "$deployDir" ]; then
+		rm -rf "$deployDir"
 	fi
 
-	if [ -d $javadocDir ]; then
-		rm -rf $javadocDir
+	if [ -d "$javadocDir" ]; then
+		rm -rf "$javadocDir"
 	fi
 
-	if [ -f $zipName ]; then
-		rm $zipName
+	if [ -f "$zipName" ]; then
+		rm "$zipName"
 	fi
 
 	projectBuilded=false
@@ -87,43 +87,45 @@ cleanProject() {
 createJavadoc() {
 	echo '>javadoc'
 
-	if [ ! -d $javadocDir ]; then
-		mkdir $javadocDir
+	if [ ! -d "$javadocDir" ]; then
+		mkdir "$javadocDir"
 	fi
 
 	updateLibs
-	javadoc -subpackages $(echo $javaMainClass | sed -E "s/([^.]*)\..*/\1/") -private -d $javadocDir -cp "$srcDir$libs"
+	javadoc -subpackages $(echo "$javaMainClass" | sed -E "s/([^.]*)\..*/\1/") -d "$javadocDir" -cp "$srcDir$libs"
 }
 
 
 deployProject() {
 	buildProject
 
-	if [ -d $deployDir ]; then
-		rm -rf $deployDir
+	if [ -d "$deployDir" ]; then
+		rm -rf "$deployDir"
 	fi
 
 	echo '>deploy'
-	mkdir $deployDir
+	mkdir "$deployDir"
 
 	tmpManifest="/tmp/MANIFEST.MF"
-	if [ -f $tmpManifest ]; then
-		rm $tmpManifest
+	if [ -f "$tmpManifest" ]; then
+		rm "$tmpManifest"
 	fi
 
-	echo "Main-Class: $javaMainClass" >> $tmpManifest
-	echo "Class-Path: $(find libs -name '*.jar' -printf '%p ')" >> $tmpManifest
+	echo "Main-Class:" "$javaMainClass" >> "$tmpManifest"
+	if [ -d "$libsDir" ]; then
+		echo "Class-Path: $(find "$libsDir" -name '*.jar' -printf '%p ')" >> "$tmpManifest"
+	fi
 
-	cd $buildDir
-	jar cfm ../$deployDir/$jarName.jar $tmpManifest $(find . -name '*.class')
+	cd "$buildDir"
+	jar cfm ../"$deployDir"/"$jarName".jar "$tmpManifest" $(find . -name '*.class')
 	cd ..
 
-	if [ -d $resDir ]; then
-		cp $resDir $deployDir -r
+	if [ -d "$resDir" ]; then
+		cp "$resDir" "$deployDir" -r
 	fi
 
-	if [ -d $libsDir ]; then
-		cp $libsDir $deployDir -r
+	if [ -d "$libsDir" ]; then
+		cp "$libsDir" "$deployDir" -r
 	fi
 }
 
@@ -132,7 +134,7 @@ runProject() {
 	echo '>run'
 
 	updateLibs
-	java -cp "$buildDir:$libs" $javaMainClass $*
+	java -cp "$buildDir$libs" "$javaMainClass" $*
 }
 
 testProject() {
@@ -146,14 +148,42 @@ testProject() {
 
 updateLibs() {
 	libs=""
-	if [ -d $libsDir ]; then
-		libs=$(find libs -name '*.jar' -printf ':%p')
+	if [ -d "$libsDir" ]; then
+		libs=$(find "$libsDir" -name '*.jar' -printf ':%p')
 	fi
 }
+
+checkConfig() {
+	if [ -z "$javaMainClass" ] || [ -z "$jarName" ] || [ -z "$buildDir" ] || [ -z "$deployDir" ] || [ -z "$javadocDir" ] || [ -z "$srcDir" ]; then
+		echo "Merci de configurer les variables suivantes :"
+		echo ""
+		echo "- javaMainClass"
+		echo "- jarName"
+		echo "- buildDir"
+		echo "- deployDir"
+		echo "- javadocDir"
+		echo "- srcDir"
+		exit 3
+	fi
+
+	if [ ! -d "$srcDir" ]; then
+		echo "Le dossier des sources n'existe pas"
+		exit 3
+	fi
+
+	if [ ! -f $srcDir/$(echo "$javaMainClass" | sed -E "s/\./\//g").java ]; then
+		echo "La classe principale n'existe pas"
+		exit 3
+	fi
+}
+
+checkConfig
 
 if [ $# -lt 1 ]; then
 	showCommand
 fi
+
+readonly BASE_DIR=$(pwd)
 
 while [ ! -z $1 ]
 do
@@ -181,6 +211,8 @@ do
 	else
 		showCommand
 	fi
+
+	cd "$BASE_DIR"
 
 	shift
 done
