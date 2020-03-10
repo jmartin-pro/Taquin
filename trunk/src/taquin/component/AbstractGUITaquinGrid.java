@@ -7,6 +7,7 @@ import java.awt.event.*;
 import taquin.observer.TaquinGridObserver;
 import taquin.core.TaquinGrid;
 
+@SuppressWarnings("serial")
 public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver {
 
 	private TaquinGrid taquinGrid;
