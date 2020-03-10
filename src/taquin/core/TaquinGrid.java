@@ -65,6 +65,10 @@ public class TaquinGrid {
 				i -= 1;
 			}
 		}
+
+		if (finished()){
+			randomizeGrid(n);
+		}
 	}
 
 	public boolean move(Direction direction) {
