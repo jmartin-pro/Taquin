@@ -29,9 +29,9 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 				int yCaseValue = caseValue / getTaquinGrid().getWidth();
 
 				g.drawImage(image,
-				       x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize,
-				       (int)(xCaseValue * cellSize * factor), (int)(yCaseValue * cellSize * factor), (int)((xCaseValue + 1) * cellSize * factor), (int)((yCaseValue + 1) * cellSize * factor),
-				       null);
+					x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize,
+					(int)(xCaseValue * cellSize * factor), (int)(yCaseValue * cellSize * factor), (int)((xCaseValue + 1) * cellSize * factor), (int)((yCaseValue + 1) * cellSize * factor),
+					null);
 			}
 		}
 

@@ -69,23 +69,22 @@ public class MainWindow extends JFrame {
 		menuAffichage.add(itemChiffre);
 		//Evenement de l'item "mode chiffres"
 		itemChiffre.addActionListener((ActionEvent e) -> {
+			JFileChooser imageChoosed = new JFileChooser();
+			imageChoosed.setDialogTitle("Choisir une image");
+			imageChoosed.setAcceptAllFileFilterUsed(false);
+			imageChoosed.setFileFilter(imagesFilter);
 
-		FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
 
-		JFileChooser imageChoosed = new JFileChooser();
-		imageChoosed.setDialogTitle("Choisir une image");
-		imageChoosed.setAcceptAllFileFilterUsed(false);
-		imageChoosed.setFileFilter(imagesFilter);
-		int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			try {
-	          Image image = ImageIO.read(new File(imageChoosed.getSelectedFile().getPath()));
-			  imageTaquinGrid.setImage(image);
-	       } catch (IOException ex) {
-			   JOptionPane.showMessageDialog(MainWindow.this, "Impossible d'ouvrir le fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
-	       }
-		}
-
+			int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+				try {
+					Image image = ImageIO.read(new File(imageChoosed.getSelectedFile().getPath()));
+					imageTaquinGrid.setImage(image);
+				} catch (IOException ex) {
+					JOptionPane.showMessageDialog(MainWindow.this, "Impossible d'ouvrir le fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		});
 
 		menuBar.add(menuFichier);
@@ -95,23 +94,21 @@ public class MainWindow extends JFrame {
 	}
 
 	private void createMainUI() {
-			setLayout(new CardLayout());
-			TaquinGrid taquinGrid = new TaquinGrid(5,5);
-			numberTaquin = new NumberTaquinGrid(taquinGrid);
-			imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
+		setLayout(new CardLayout());
+		TaquinGrid taquinGrid = new TaquinGrid(5,5);
+		numberTaquin = new NumberTaquinGrid(taquinGrid);
+		imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
 
-			//On ajoute l'ensemble des calques, un JPanel et son nom
-			this.add(imageTaquinGrid, IMAGE_GRID);
-			this.add(numberTaquin, NUMBER_GRID);
+		//On ajoute l'ensemble des calques, un JPanel et son nom
+		this.add(imageTaquinGrid, IMAGE_GRID);
+		this.add(numberTaquin, NUMBER_GRID);
 
-			showTaquinGrid(NUMBER_GRID);
+		showTaquinGrid(NUMBER_GRID);
 	}
 
 	private void showTaquinGrid(String gridType) {
 		CardLayout cl = (CardLayout)(getContentPane().getLayout());
 		cl.show(getContentPane(), gridType);
 	}
-
-
 
 }
