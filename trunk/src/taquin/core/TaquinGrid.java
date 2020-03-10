@@ -44,7 +44,7 @@ public class TaquinGrid {
 	}
 
 	public void randomizeGrid() {
-		randomizeGrid(1000);
+		randomizeGrid(width * height * 100);
 	}
 
 	public void randomizeGrid(int n) {

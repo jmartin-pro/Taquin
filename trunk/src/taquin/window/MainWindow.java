@@ -19,6 +19,10 @@ public class MainWindow extends JFrame {
 
 	private static final String NUMBER_GRID = "NUMBER";
 	private static final String IMAGE_GRID = "IMAGE";
+
+	private static final int DEFAULT_GRID_WIDTH = 5;
+	private static final int DEFAULT_GRID_HEIGHT = 5;
+
 	private ImageTaquinGrid imageTaquinGrid;
 	// private GUITaquinGrid guiTaquinGrid;
 
@@ -51,8 +55,11 @@ public class MainWindow extends JFrame {
 		//Evenement de l'item "nouvele partie"
 		itemNewGame.addActionListener((ActionEvent e) -> {
 			NewGameDialog dialog = new NewGameDialog(this);
-			Integer width = dialog.getSelectedWidth();
-			Integer heigth = dialog.getSelectedHeight();
+			Integer taquinGridWidth = dialog.getSelectedWidth();
+			Integer taquinGridHeight = dialog.getSelectedHeight();
+
+			if(taquinGridWidth != null && taquinGridHeight != null)
+				newGame(taquinGridWidth, taquinGridHeight);
 		});
 
 		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
@@ -69,12 +76,12 @@ public class MainWindow extends JFrame {
 		menuAffichage.add(itemChiffre);
 		//Evenement de l'item "mode chiffres"
 		itemChiffre.addActionListener((ActionEvent e) -> {
+			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
+
 			JFileChooser imageChoosed = new JFileChooser();
 			imageChoosed.setDialogTitle("Choisir une image");
 			imageChoosed.setAcceptAllFileFilterUsed(false);
 			imageChoosed.setFileFilter(imagesFilter);
-
-			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
 
 			int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
 			if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -95,15 +102,32 @@ public class MainWindow extends JFrame {
 
 	private void createMainUI() {
 		setLayout(new CardLayout());
-		TaquinGrid taquinGrid = new TaquinGrid(5,5);
-		numberTaquin = new NumberTaquinGrid(taquinGrid);
-		imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
+		newGame(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
 
 		//On ajoute l'ensemble des calques, un JPanel et son nom
 		this.add(imageTaquinGrid, IMAGE_GRID);
 		this.add(numberTaquin, NUMBER_GRID);
 
 		showTaquinGrid(NUMBER_GRID);
+	}
+
+	protected void newGame(int w, int h) {
+		TaquinGrid taquinGrid = new TaquinGrid(w, h);
+
+		if (numberTaquin == null) {
+			numberTaquin = new NumberTaquinGrid(taquinGrid);
+		} else {
+			numberTaquin.setTaquinGrid(taquinGrid);
+		}
+
+		if (imageTaquinGrid == null) {
+			imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
+		} else {
+			imageTaquinGrid.setTaquinGrid(taquinGrid);
+		}
+
+		imageTaquinGrid.repaint();
+		numberTaquin.repaint();
 	}
 
 	private void showTaquinGrid(String gridType) {
