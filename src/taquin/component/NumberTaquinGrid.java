@@ -24,6 +24,7 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 			}
 		}
 
+		drawSelectedSquare(g);
 		drawGrid(g);
 	}
 

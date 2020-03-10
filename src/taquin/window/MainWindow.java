@@ -68,6 +68,7 @@ public class MainWindow extends JFrame {
 		});
 
 		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
+		itemImage.setState(true);
 		menuAffichage.add(itemImage);
 		//Evenement de l'item "mode image"
 		itemImage.addItemListener((ItemEvent e) -> {
@@ -113,7 +114,7 @@ public class MainWindow extends JFrame {
 		this.add(imageTaquinGrid, IMAGE_GRID);
 		this.add(numberTaquin, NUMBER_GRID);
 
-		showTaquinGrid(NUMBER_GRID);
+		showTaquinGrid(IMAGE_GRID);
 	}
 
 	protected void newGame(int w, int h) {

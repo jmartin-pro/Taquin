@@ -6,9 +6,10 @@ import java.awt.event.*;
 
 import taquin.observer.TaquinGridObserver;
 import taquin.core.TaquinGrid;
+import taquin.core.Direction;
 
 @SuppressWarnings("serial")
-public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver {
+public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver, MouseListener{
 
 	private TaquinGrid taquinGrid;
 
@@ -21,6 +22,8 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver 
 			public void mouseMoved(MouseEvent e) {
 				xMouse = e.getX();
 				yMouse = e.getY();
+
+				repaint();
 			}
 			@Override
 			public void mouseDragged(MouseEvent e) {
@@ -28,12 +31,14 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver 
 			}
 		});
 
+		addMouseListener(this);
+
+		setFocusable(true);
 		/*addKeyListener(new KeyListener() {
 
 			public void keyTyped(KeyEvent k) {
 				System.out.println("va dans keyTyped");
 			}
-
 
 			public void keyPressed(KeyEvent k) {
 				System.out.println("va dans keyPressed");
@@ -58,12 +63,13 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver 
 				}
 			}
 
-
 			public void keyReleased(KeyEvent k) {
 				System.out.println("va dans keyRealeased");
 			}
 		});*/
+
 		this.taquinGrid = taquinGrid;
+		this.taquinGrid.addTaquinObserver(this);
 	}
 
 	protected int getCellSize() {
@@ -83,32 +89,86 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver 
 		}
 	}
 
+	protected void drawSelectedSquare(Graphics g) {
+		int cellSize = getCellSize();
+
+		Graphics2D g2d = (Graphics2D) g;
+		Composite originalComposite = g2d.getComposite();
+
+		float alpha = 0.50f;
+		AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+		g2d.setComposite(composite);
+
+		g2d.setPaint(Color.WHITE);
+
+		int mouseCaseX = getXMouse() / cellSize;
+		int mouseCaseY = getYMouse() / cellSize;
+		if(isCaseValid(mouseCaseX, mouseCaseY))
+			g2d.fillRect(mouseCaseX * cellSize, mouseCaseY * cellSize, cellSize, cellSize);
+			
+		g2d.setComposite(originalComposite);
+	}
+
+	protected boolean isCaseValid(int x, int y) {
+		int xPosVide = taquinGrid.getPosXVide();
+		int yPosVide = taquinGrid.getPosYVide();
+
+		return (x == xPosVide + 1 || x == xPosVide - 1) && y == yPosVide && x < taquinGrid.getWidth()
+			|| (y == yPosVide + 1 || y == yPosVide - 1) && x == xPosVide && y < taquinGrid.getHeight();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		int cellSize = getCellSize();
+		int mouseCaseX = getXMouse() / cellSize;
+		int mouseCaseY = getYMouse() / cellSize;
+		int xPosVide = this.taquinGrid.getPosXVide();
+		int yPosVide = this.taquinGrid.getPosYVide();
+
+		if(isCaseValid(mouseCaseX, mouseCaseY)) {
+			if(mouseCaseX == xPosVide - 1)
+				this.taquinGrid.move(Direction.DROITE);
+			else if(mouseCaseX == xPosVide + 1)
+				this.taquinGrid.move(Direction.GAUCHE);
+			else if(mouseCaseY == yPosVide - 1)
+				this.taquinGrid.move(Direction.BAS);
+			else if(mouseCaseY == yPosVide + 1)
+				this.taquinGrid.move(Direction.HAUT);
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {}
+
 	@Override
 	public void moved() {
 		this.repaint();
+	}
+
+	public void setTaquinGrid(TaquinGrid taquinGrid) {
+		this.taquinGrid.removeTaquinObserver(this);
+		this.taquinGrid = taquinGrid;
+		this.taquinGrid.addTaquinObserver(this);
 	}
 
 	public TaquinGrid getTaquinGrid() {
 		return this.taquinGrid;
 	}
 
-	public void setTaquinGrid(TaquinGrid taquinGrid) {
-		this.taquinGrid = taquinGrid;
-	}
-
 	public int getXMouse() {
 		return this.xMouse;
 	}
 
-	public void setXMouse(int xMouse) {
-		this.xMouse = xMouse;
-	}
-
 	public int getYMouse() {
 		return this.yMouse;
-	}
-
-	public void setYMouse(int yMouse) {
-		this.yMouse = yMouse;
 	}
 }
