@@ -105,7 +105,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		int mouseCaseY = getYMouse() / cellSize;
 		if(isCaseValid(mouseCaseX, mouseCaseY))
 			g2d.fillRect(mouseCaseX * cellSize, mouseCaseY * cellSize, cellSize, cellSize);
-			
+
 		g2d.setComposite(originalComposite);
 	}
 
