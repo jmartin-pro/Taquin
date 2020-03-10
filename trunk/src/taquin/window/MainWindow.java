@@ -143,6 +143,12 @@ public class MainWindow extends JFrame {
 	private void showTaquinGrid(String gridType) {
 		CardLayout cl = (CardLayout)(getContentPane().getLayout());
 		cl.show(getContentPane(), gridType);
+
+		if(gridType == NUMBER_GRID) {
+			numberTaquin.requestFocus();
+		} else if(gridType == IMAGE_GRID) {
+			imageTaquinGrid.requestFocus();
+		}
 	}
 
 }
