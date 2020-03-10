@@ -17,6 +17,7 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 	@Override
 	public void paintComponent(Graphics g) {
 		int cellSize = getCellSize();
+		float factor = Math.min((float)image.getWidth(null) / (float)(getTaquinGrid().getWidth() * cellSize), (float)image.getHeight(null) / (float)(getTaquinGrid().getHeight() * cellSize));
 
 		for(int y = 0 ; y < getTaquinGrid().getHeight() ; y++) {
 			for(int x = 0 ; x < getTaquinGrid().getWidth() ; x++) {
@@ -29,7 +30,7 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 				g.drawImage(image,
 				       x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize,
-				       xCaseValue * cellSize, yCaseValue * cellSize, xCaseValue * cellSize + cellSize, yCaseValue * cellSize + cellSize,
+				       (int)(xCaseValue * cellSize * factor), (int)(yCaseValue * cellSize * factor), (int)((xCaseValue + 1) * cellSize * factor), (int)((yCaseValue + 1) * cellSize * factor),
 				       null);
 			}
 		}

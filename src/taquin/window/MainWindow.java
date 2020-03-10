@@ -56,7 +56,6 @@ public class MainWindow extends JFrame {
 		});
 
 		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
-		itemImage.setState(true);
 		menuAffichage.add(itemImage);
 		//Evenement de l'item "mode image"
 		itemImage.addItemListener((ItemEvent e) -> {
@@ -104,6 +103,8 @@ public class MainWindow extends JFrame {
 			//On ajoute l'ensemble des calques, un JPanel et son nom
 			this.add(imageTaquinGrid, IMAGE_GRID);
 			this.add(numberTaquin, NUMBER_GRID);
+
+			showTaquinGrid(NUMBER_GRID);
 	}
 
 	private void showTaquinGrid(String gridType) {
