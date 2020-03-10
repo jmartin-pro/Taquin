@@ -38,6 +38,7 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 			}
 		}
 
+		drawSelectedSquare(g);
 		drawGrid(g);
 	}
 

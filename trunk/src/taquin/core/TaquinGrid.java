@@ -116,7 +116,7 @@ public class TaquinGrid {
 		for(int y = 0 ; y < this.height ; y++) {
 			for(int x = 0 ; x < this.width ; x++) {
 				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == EMPTY_SQUARE)
-					break;
+					continue;
 
 				if(this.grid[x][y] != x+y*this.width+1) {
 					return false;
@@ -166,5 +166,13 @@ public class TaquinGrid {
 
 	public int getWidth() {
 		return this.width;
+	}
+
+	public int getPosXVide() {
+		return this.posXVide;
+	}
+
+	public int getPosYVide() {
+		return this.posYVide;
 	}
 }
