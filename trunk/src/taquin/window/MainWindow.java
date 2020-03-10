@@ -1,5 +1,8 @@
 package taquin.window;
 
+import java.io.*;
+import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -76,8 +79,12 @@ public class MainWindow extends JFrame {
 		imageChoosed.setFileFilter(imagesFilter);
 		int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
-		  System.out.println("You chose to open this file: " +
-			   imageChoosed.getSelectedFile().getPath());
+			try {
+	          Image image = ImageIO.read(new File(imageChoosed.getSelectedFile().getPath()));
+			  imageTaquinGrid.setImage(image);
+	       } catch (IOException ex) {
+
+	       }
 		}
 
 		});

@@ -1,8 +1,5 @@
 package taquin.component;
 
-import java.io.*;
-import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -15,11 +12,6 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 	public ImageTaquinGrid(TaquinGrid taquinGrid) {
 		super(taquinGrid);
-
-		try {
-          image = ImageIO.read(new File("/home/etudiants/21909920/Images/img.jpg"));
-       } catch (IOException ex) {
-       }
 	}
 
 	@Override
@@ -51,5 +43,6 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 	public void setImage(Image image) {
 		this.image = image;
+		this.repaint();
 	}
 }
