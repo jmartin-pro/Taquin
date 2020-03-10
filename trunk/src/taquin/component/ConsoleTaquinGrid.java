@@ -24,13 +24,21 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 	 * @return void
 	 */
 	public void newGame() {
+		this.taquinGrid.removeTaquinObserver(this);
 		this.taquinGrid.randomizeGrid();
+		this.taquinGrid.addTaquinObserver(this);
+
+		this.moved();
 
 		while(!this.taquinGrid.finished()) {
 			Direction dir = makeAMove();
+			System.out.println();
+			System.out.println("=================================");
+			System.out.println();
 			if(!this.taquinGrid.move(dir)) {
 				System.out.println("Action invalide");
 			}
+
 		}
 
 		System.out.println("Félicitation vous avez gagné!");
@@ -68,8 +76,6 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 			System.out.println();
 		}
 
-		System.out.println();
-		System.out.println();
 		System.out.println();
 	}
 }
