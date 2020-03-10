@@ -8,6 +8,9 @@ import taquin.core.TaquinGrid;
 import taquin.window.dialog.*;
 import taquin.component.*;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 
@@ -64,7 +67,19 @@ public class MainWindow extends JFrame {
 		menuAffichage.add(itemChiffre);
 		//Evenement de l'item "mode chiffres"
 		itemChiffre.addActionListener((ActionEvent e) -> {
-			showTaquinGrid(IMAGE_GRID);
+
+		FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("png", "bmp", "jpg", "jpeg");
+
+		JFileChooser imageChoosed = new JFileChooser();
+		imageChoosed.setDialogTitle("Choisir une image");
+		imageChoosed.setAcceptAllFileFilterUsed(false);
+		imageChoosed.setFileFilter(imagesFilter);
+		int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+		  System.out.println("You chose to open this file: " +
+			   imageChoosed.getSelectedFile().getPath());
+		}
+
 		});
 
 		menuBar.add(menuFichier);
