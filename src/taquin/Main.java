@@ -9,11 +9,10 @@ import taquin.window.*;
 public class Main {
 
 	public static void main(String[] args) {
-
 		int w = 0;
 		int h = 0;
 
-		if(args.length == 2){
+		if(args.length == 2) {
 			try {
 				w = Integer.parseInt(args[0]);
 				h = Integer.parseInt(args[1]);
@@ -26,10 +25,10 @@ public class Main {
 			ConsoleTaquinGrid consoleTaquinGrid = new ConsoleTaquinGrid(w, h);
 			consoleTaquinGrid.newGame();
 
-		}else if(args.length == 0){
+		} else if(args.length == 0) {
 			MainWindow window = new MainWindow(800,800,"Taquin game");
 
-		}else{
+		} else {
 			System.out.println("./build.sh run --args '<width> <heigth>'");
 		}
 
