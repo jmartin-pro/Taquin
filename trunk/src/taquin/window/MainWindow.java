@@ -70,7 +70,7 @@ public class MainWindow extends JFrame {
 		//Evenement de l'item "mode chiffres"
 		itemChiffre.addActionListener((ActionEvent e) -> {
 
-		FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("png", "bmp", "jpg", "jpeg");
+		FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
 
 		JFileChooser imageChoosed = new JFileChooser();
 		imageChoosed.setDialogTitle("Choisir une image");
@@ -82,7 +82,7 @@ public class MainWindow extends JFrame {
 	          Image image = ImageIO.read(new File(imageChoosed.getSelectedFile().getPath()));
 			  imageTaquinGrid.setImage(image);
 	       } catch (IOException ex) {
-
+			   JOptionPane.showMessageDialog(MainWindow.this, "Impossible d'ouvrir le fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
 	       }
 		}
 
