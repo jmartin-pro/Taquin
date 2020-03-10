@@ -11,20 +11,29 @@ libsDir="libs"
 srcDir="src"
 testDir="test"
 resDir="res"
+raportDir="rapport"
 
 projectBuilded=false
 
 # Test
 
 zipProject() {
-	echo '>zip'	
 	cleanProject
 	createJavadoc
 	deployProject
-	
+	echo '>zip'
+
 	rm -rf $buildDir
-	
+
+	tmpZipDir=/tmp/"$jarName"Zip
+	basedir=$(pwd)
+	mkdir $tmpZipDir
+	cp $srcDir $javadocDir $deployDir $testDir $resDirv $raportDir $0 $tmpZipDir -r
+	cd $tmpZipDir
 	zip $zipName *
+	mv $zipName "$basedir"
+	cd "$basedir"
+	rm -rf $tmpZipDir
 }
 
 showCommand() {
@@ -49,7 +58,7 @@ buildProject() {
 	if [ ! $? -eq 0 ]; then
 		exit 2
 	fi
-	
+
 	projectBuilded=true
 }
 
@@ -59,11 +68,11 @@ cleanProject() {
 	if [ -d $buildDir ]; then
 		rm -rf $buildDir
 	fi
-	
+
 	if [ -d $deployDir ]; then
 		rm -rf $deployDir
 	fi
-	
+
 	if [ -d $javadocDir ]; then
 		rm -rf $javadocDir
 	fi
@@ -71,7 +80,7 @@ cleanProject() {
 	if [ -f $zipName ]; then
 		rm $zipName
 	fi
-	
+
 	projectBuilded=false
 }
 
@@ -81,7 +90,7 @@ createJavadoc() {
 	if [ ! -d $javadocDir ]; then
 		mkdir $javadocDir
 	fi
-	
+
 	updateLibs
 	javadoc -subpackages $(echo $javaMainClass | sed -E "s/([^.]*)\..*/\1/") -private -d $javadocDir -cp "$srcDir$libs"
 }
@@ -93,26 +102,26 @@ deployProject() {
 	if [ -d $deployDir ]; then
 		rm -rf $deployDir
 	fi
-	
+
 	echo '>deploy'
 	mkdir $deployDir
-	
+
 	tmpManifest="/tmp/MANIFEST.MF"
 	if [ -f $tmpManifest ]; then
 		rm $tmpManifest
 	fi
-	
+
 	echo "Main-Class: $javaMainClass" >> $tmpManifest
 	echo "Class-Path: $(find libs -name '*.jar' -printf '%p ')" >> $tmpManifest
-	
+
 	cd $buildDir
 	jar cfm ../$deployDir/$jarName.jar $tmpManifest $(find . -name '*.class')
 	cd ..
-	
+
 	if [ -d $resDir ]; then
 		cp $resDir $deployDir -r
 	fi
-	
+
 	if [ -d $libsDir ]; then
 		cp $libsDir $deployDir -r
 	fi
@@ -130,7 +139,7 @@ testProject() {
 	buildProject
 
 	echo '>test'
-	
+
 	updateLibs
 	java -cp "$buildDir$libs" edt.Test
 }
