@@ -1,14 +1,8 @@
 package taquin.window;
 
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.CardLayout;
-
-import java.awt.event.ActionEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 import taquin.core.TaquinGrid;
 import taquin.window.dialog.*;
@@ -19,10 +13,9 @@ public class MainWindow extends JFrame {
 
 	private static final String NUMBER_GRID = "NUMBER";
 	private static final String IMAGE_GRID = "IMAGE";
-	// private ImageTaquinGrid imageTaquinGrid;
+	private ImageTaquinGrid imageTaquinGrid;
 	// private GUITaquinGrid guiTaquinGrid;
 
-	JPanel imagePanel = new JPanel();
 	NumberTaquinGrid numberTaquin;
 
 	public MainWindow(int w, int h, String name) {
@@ -56,18 +49,22 @@ public class MainWindow extends JFrame {
 			Integer heigth = dialog.getSelectedHeight();
 		});
 
-		JMenuItem itemImage = new JMenuItem("Mode image");
+		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
+		itemImage.setState(true);
 		menuAffichage.add(itemImage);
 		//Evenement de l'item "mode image"
-		itemImage.addActionListener((ActionEvent e) -> {
-			showTaquinGrid(IMAGE_GRID);
+		itemImage.addItemListener((ItemEvent e) -> {
+			if(itemImage.getState())
+				showTaquinGrid(IMAGE_GRID);
+			else
+				showTaquinGrid(NUMBER_GRID);
 		});
 
-		JMenuItem itemChiffre = new JMenuItem("Mode chiffres");
+		JMenuItem itemChiffre = new JMenuItem("Changer l'image");
 		menuAffichage.add(itemChiffre);
 		//Evenement de l'item "mode chiffres"
 		itemChiffre.addActionListener((ActionEvent e) -> {
-			showTaquinGrid(NUMBER_GRID);
+			showTaquinGrid(IMAGE_GRID);
 		});
 
 		menuBar.add(menuFichier);
@@ -79,11 +76,12 @@ public class MainWindow extends JFrame {
 	private void createMainUI() {
 			setLayout(new CardLayout());
 			TaquinGrid taquinGrid = new TaquinGrid(5,5);
-			NumberTaquinGrid numberTaquin = new NumberTaquinGrid(taquinGrid);
+			numberTaquin = new NumberTaquinGrid(taquinGrid);
+			imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
+
 			//On ajoute l'ensemble des calques, un JPanel et son nom
-			this.add(imagePanel, IMAGE_GRID);
+			this.add(imageTaquinGrid, IMAGE_GRID);
 			this.add(numberTaquin, NUMBER_GRID);
-			imagePanel.setBackground(Color.RED);
 	}
 
 	private void showTaquinGrid(String gridType) {
