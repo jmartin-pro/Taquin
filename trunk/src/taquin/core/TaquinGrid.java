@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaquinGrid {
+
+	public static int EMPTY_SQUARE = -1;
+
 	private int[][] grid;
 	private int width, height;
 	private int posXVide, posYVide;
@@ -32,7 +35,7 @@ public class TaquinGrid {
 			}
 		}
 
-		this.grid[this.width-1][this.height-1] = -1;
+		this.grid[this.width-1][this.height-1] = EMPTY_SQUARE;
 
 		this.posXVide = this.width-1;
 		this.posYVide = this.height-1;
@@ -84,22 +87,22 @@ public class TaquinGrid {
 
 		if (direction == Direction.HAUT) {
 			this.grid[posXVide][posYVide] = this.grid[posXVide][posYVide+1];
-			this.grid[posXVide][posYVide+1] = -1;
+			this.grid[posXVide][posYVide+1] = EMPTY_SQUARE;
 
 			this.posYVide++;
 		} else if (direction == Direction.DROITE) {
 			this.grid[posXVide][posYVide] = this.grid[posXVide-1][posYVide];
-			this.grid[posXVide-1][posYVide] = -1;
+			this.grid[posXVide-1][posYVide] = EMPTY_SQUARE;
 
 			this.posXVide--;
 		} else if (direction == Direction.BAS) {
 			this.grid[posXVide][posYVide] = this.grid[posXVide][posYVide-1];
-			this.grid[posXVide][posYVide-1] = -1;
+			this.grid[posXVide][posYVide-1] = EMPTY_SQUARE;
 
 			this.posYVide--;
 		} else if (direction == Direction.GAUCHE) {
 			this.grid[posXVide][posYVide] = this.grid[posXVide+1][posYVide];
-			this.grid[posXVide+1][posYVide] = -1;
+			this.grid[posXVide+1][posYVide] = EMPTY_SQUARE;
 
 			this.posXVide++;
 		}
@@ -112,7 +115,7 @@ public class TaquinGrid {
 	public boolean finished() {
 		for(int y = 0 ; y < this.height ; y++) {
 			for(int x = 0 ; x < this.width ; x++) {
-				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == -1)
+				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == EMPTY_SQUARE)
 					break;
 
 				if(this.grid[x][y] != x+y*this.width+1) {

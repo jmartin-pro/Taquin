@@ -1,5 +1,8 @@
 package taquin.component;
 
+import java.io.*;
+import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,10 +15,33 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 	public ImageTaquinGrid(TaquinGrid taquinGrid) {
 		super(taquinGrid);
+
+		try {
+          image = ImageIO.read(new File("/home/etudiants/21909920/Images/img.jpg"));
+       } catch (IOException ex) {
+       }
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
+		int cellSize = getCellSize();
+
+		for(int y = 0 ; y < getTaquinGrid().getHeight() ; y++) {
+			for(int x = 0 ; x < getTaquinGrid().getWidth() ; x++) {
+				int caseValue = getTaquinGrid().getSquare(x, y);
+				if(caseValue == TaquinGrid.EMPTY_SQUARE)
+					continue;
+
+				int xCaseValue = caseValue % getTaquinGrid().getWidth();
+				int yCaseValue = caseValue / getTaquinGrid().getWidth();
+
+				g.drawImage(image,
+				       x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize,
+				       xCaseValue * cellSize, yCaseValue * cellSize, xCaseValue * cellSize + cellSize, yCaseValue * cellSize + cellSize,
+				       null);
+			}
+		}
+
 		drawGrid(g);
 	}
 
