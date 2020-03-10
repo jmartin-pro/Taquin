@@ -10,12 +10,15 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 	private Image image;
 
-	public ImageTaquinGrid(TaquinGrid taquinGrid) {
+	public ImageTaquinGrid(TaquinGrid taquinGrid, Image image) {
 		super(taquinGrid);
+		setImage(image);
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
 		int cellSize = getCellSize();
 		float factor = Math.min((float)image.getWidth(null) / (float)(getTaquinGrid().getWidth() * cellSize), (float)image.getHeight(null) / (float)(getTaquinGrid().getHeight() * cellSize));
 
