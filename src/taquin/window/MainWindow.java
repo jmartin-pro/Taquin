@@ -10,6 +10,7 @@ import java.awt.CardLayout;
 
 import java.awt.event.ActionEvent;
 
+import taquin.core.TaquinGrid;
 import taquin.window.dialog.*;
 import taquin.component.*;
 
@@ -22,7 +23,7 @@ public class MainWindow extends JFrame {
 	// private GUITaquinGrid guiTaquinGrid;
 
 	JPanel imagePanel = new JPanel();
-	JPanel chiffrePanel = new JPanel();
+	NumberTaquinGrid numberTaquin;
 
 	public MainWindow(int w, int h, String name) {
 		this.setTitle(name);
@@ -77,10 +78,11 @@ public class MainWindow extends JFrame {
 
 	private void createMainUI() {
 			setLayout(new CardLayout());
+			TaquinGrid taquinGrid = new TaquinGrid(5,5);
+			NumberTaquinGrid numberTaquin = new NumberTaquinGrid(taquinGrid);
 			//On ajoute l'ensemble des calques, un JPanel et son nom
 			this.add(imagePanel, IMAGE_GRID);
-			this.add(chiffrePanel, NUMBER_GRID);
-			chiffrePanel.setBackground(Color.ORANGE);
+			this.add(numberTaquin, NUMBER_GRID);
 			imagePanel.setBackground(Color.RED);
 	}
 
