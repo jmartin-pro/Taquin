@@ -58,8 +58,13 @@ public class MainWindow extends JFrame {
 			Integer taquinGridWidth = dialog.getSelectedWidth();
 			Integer taquinGridHeight = dialog.getSelectedHeight();
 
-			if(taquinGridWidth != null && taquinGridHeight != null)
-				newGame(taquinGridWidth, taquinGridHeight);
+			if(taquinGridWidth != null && taquinGridHeight != null) {
+				if(taquinGridWidth < 23 && taquinGridWidth > 2 && taquinGridHeight < 23 && taquinGridHeight > 2) {
+					newGame(taquinGridWidth, taquinGridHeight);
+				} else{
+					JOptionPane.showMessageDialog(this, "La largeur et la hauteur de la grille doivent être comprises entre 3 et 22", "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
+			}
 		});
 
 		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
@@ -121,7 +126,11 @@ public class MainWindow extends JFrame {
 		}
 
 		if (imageTaquinGrid == null) {
-			imageTaquinGrid = new ImageTaquinGrid(taquinGrid);
+			try {
+				imageTaquinGrid = new ImageTaquinGrid(taquinGrid, ImageIO.read(new File("res/default.jpg")));
+			} catch (IOException ex) {
+				JOptionPane.showMessageDialog(MainWindow.this, "Impossible de charger l'image par défaut", "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
 			imageTaquinGrid.setTaquinGrid(taquinGrid);
 		}

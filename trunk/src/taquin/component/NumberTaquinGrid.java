@@ -13,16 +13,18 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 		super(taquinGrid);
 	}
 
-	public void paintComponent(Graphics gNum) {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
 		int cellSize = getCellSize();
 
 		for(int y = 0 ; y < getTaquinGrid().getHeight(); y++) {
 			for(int x = 0 ; x < getTaquinGrid().getWidth() ; x++) {
-				gNum.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x, cellSize*(y+1));
+				g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x, cellSize*(y+1));
 			}
 		}
 
-		drawGrid(gNum);
+		drawGrid(g);
 	}
 
 
