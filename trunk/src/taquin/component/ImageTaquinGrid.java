@@ -28,12 +28,12 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 				if(caseValue == TaquinGrid.EMPTY_SQUARE)
 					continue;
 
-				int xCaseValue = caseValue % getTaquinGrid().getWidth();
-				int yCaseValue = caseValue / getTaquinGrid().getWidth();
+				int xCaseValue = (caseValue-1) % getTaquinGrid().getWidth();
+				int yCaseValue = (caseValue-1) / getTaquinGrid().getWidth();
 
 				g.drawImage(image,
-					x * cellSize, y * cellSize, x * cellSize + cellSize, y * cellSize + cellSize,
-					(int)(xCaseValue * cellSize * factor), (int)(yCaseValue * cellSize * factor), (int)((xCaseValue + 1) * cellSize * factor), (int)((yCaseValue + 1) * cellSize * factor),
+					x * cellSize, y * cellSize, (x + 1) * cellSize, (y + 1) * cellSize,
+					(int)((xCaseValue * cellSize) * factor), (int)((yCaseValue * cellSize) * factor), (int)(((xCaseValue + 1) * cellSize) * factor), (int)(((yCaseValue + 1) * cellSize) * factor),
 					null);
 			}
 		}
