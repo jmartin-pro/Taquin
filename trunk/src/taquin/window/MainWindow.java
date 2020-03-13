@@ -47,7 +47,7 @@ public class MainWindow extends JFrame {
 	private void createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 
-		JMenu menuFichier = new JMenu("Fichier");
+		JMenu menuFichier = new JMenu("Jeu");
 		JMenu menuAffichage = new JMenu("Mode");
 
 		JMenuItem itemNewGame = new JMenuItem("Nouvelle partie");

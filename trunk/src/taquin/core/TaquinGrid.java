@@ -6,14 +6,18 @@ import taquin.observer.TaquinGridObserver;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class TaquinGrid {
 
 	public static int EMPTY_SQUARE = -1;
 
 	private int[][] grid;
+	private int[][] copieGrid;
 	private int width, height;
 	private int posXVide, posYVide;
+
+	private int fini;
 
 	private List<TaquinGridObserver> taquinGridObserver;
 
@@ -40,6 +44,7 @@ public class TaquinGrid {
 		this.posXVide = this.width-1;
 		this.posYVide = this.height-1;
 
+		copieGrid();
 		randomizeGrid();
 	}
 
@@ -49,6 +54,7 @@ public class TaquinGrid {
 
 	public void randomizeGrid(int n) {
 		Random r = new Random();
+		this.fini = 1;
 
 		for (int i = 0; i < n; i++) {
 			int nbrRandom = r.nextInt(4);
@@ -68,10 +74,8 @@ public class TaquinGrid {
 				i -= 1;
 			}
 		}
+		this.fini = 0;
 
-		if (finished()){
-			randomizeGrid(n);
-		}
 	}
 
 	public boolean move(Direction direction) {
@@ -108,17 +112,47 @@ public class TaquinGrid {
 		}
 
 		notifyMoved();
-
+		if (fini == 0){
+			if (finished()==true){
+				if(JOptionPane.showConfirmDialog(null,"Vous avez gagné ! Voulez vous rejouez ?", "VICTOIRE !", JOptionPane.YES_NO_OPTION)
+				== JOptionPane.YES_OPTION) {
+                	randomizeGrid();
+				} else {
+                	System.exit(0);
+                }
+			}
+		}
 		return true;
 	}
 
-	public boolean finished() {
+	public void copieGrid(){
+		this.copieGrid = new int[this.width][this.height];
 		for(int y = 0 ; y < this.height ; y++) {
 			for(int x = 0 ; x < this.width ; x++) {
-				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == EMPTY_SQUARE)
+				this.copieGrid[x][y] = this.grid[x][y];
+			}
+		}
+
+	}
+
+	public boolean finished() {
+		System.out.println("Coucou");
+		System.out.println("copieGrid :");
+		for(int y = 0 ; y < this.height ; y++) {
+			for(int x = 0 ; x < this.width ; x++) {
+				System.out.print(this.copieGrid[x][y]);
+			}
+			System.out.println();
+		}
+		for(int y = 0 ; y < this.height ; y++) {
+			for(int x = 0 ; x < this.width ; x++) {
+			/*	if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == EMPTY_SQUARE)
 					continue;
 
 				if(this.grid[x][y] != x+y*this.width+1) {
+					return false;
+				}*/
+				if(this.grid[x][y] != this.copieGrid[x][y]){
 					return false;
 				}
 			}
