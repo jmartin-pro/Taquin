@@ -8,25 +8,27 @@ import java.awt.*;
 import java.awt.event.*;
 
 import taquin.core.TaquinGrid;
-import taquin.window.dialog.*;
 import taquin.component.*;
+import taquin.observer.TaquinGridObserver;
+import taquin.window.dialog.*;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements TaquinGridObserver {
 
 	private static final String NUMBER_GRID = "NUMBER";
 	private static final String IMAGE_GRID = "IMAGE";
 
-	private static final int DEFAULT_GRID_WIDTH = 3;
-	private static final int DEFAULT_GRID_HEIGHT = 3;
+	private static final int DEFAULT_GRID_WIDTH = 5;
+	private static final int DEFAULT_GRID_HEIGHT = 5;
 
 	private ImageTaquinGrid imageTaquinGrid;
-	// private GUITaquinGrid guiTaquinGrid;
+	private NumberTaquinGrid numberTaquin;
 
-	NumberTaquinGrid numberTaquin;
+	private TaquinGrid taquinGrid;
+
 
 	public MainWindow(int w, int h, String name) {
 		this.setTitle(name);
@@ -59,7 +61,7 @@ public class MainWindow extends JFrame {
 			Integer taquinGridHeight = dialog.getSelectedHeight();
 
 			if(taquinGridWidth != null && taquinGridHeight != null) {
-				if(taquinGridWidth < 23 && taquinGridWidth > 2 && taquinGridHeight < 23 && taquinGridHeight > 2) {
+				if(taquinGridWidth > 2 && taquinGridWidth < 23 && taquinGridHeight > 2 && taquinGridHeight < 23) {
 					newGame(taquinGridWidth, taquinGridHeight);
 				} else{
 					JOptionPane.showMessageDialog(this, "La largeur et la hauteur de la grille doivent être comprises entre 3 et 22", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -118,22 +120,23 @@ public class MainWindow extends JFrame {
 	}
 
 	protected void newGame(int w, int h) {
-		TaquinGrid taquinGrid = new TaquinGrid(w, h);
+		this.taquinGrid = new TaquinGrid(w, h);
+		this.taquinGrid.addTaquinObserver(this);
 
 		if (numberTaquin == null) {
-			numberTaquin = new NumberTaquinGrid(taquinGrid);
+			numberTaquin = new NumberTaquinGrid(this.taquinGrid);
 		} else {
-			numberTaquin.setTaquinGrid(taquinGrid);
+			numberTaquin.setTaquinGrid(this.taquinGrid);
 		}
 
 		if (imageTaquinGrid == null) {
 			try {
-				imageTaquinGrid = new ImageTaquinGrid(taquinGrid, ImageIO.read(new File("res/default.jpg")));
+				imageTaquinGrid = new ImageTaquinGrid(this.taquinGrid, ImageIO.read(new File("res/default.jpg")));
 			} catch (IOException ex) {
 				JOptionPane.showMessageDialog(MainWindow.this, "Impossible de charger l'image par défaut", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			imageTaquinGrid.setTaquinGrid(taquinGrid);
+			imageTaquinGrid.setTaquinGrid(this.taquinGrid);
 		}
 
 		imageTaquinGrid.repaint();
@@ -148,6 +151,19 @@ public class MainWindow extends JFrame {
 			numberTaquin.requestFocus();
 		} else if(gridType == IMAGE_GRID) {
 			imageTaquinGrid.requestFocus();
+		}
+	}
+
+	@Override
+	public void moved() {
+		if (this.taquinGrid.finished() == true){
+			imageTaquinGrid.repaint();
+			numberTaquin.repaint();
+
+			int answer = JOptionPane.showConfirmDialog(this,"Vous avez gagné ! Voulez vous rejouer ?", "VICTOIRE !", JOptionPane.YES_NO_OPTION);
+			if(answer == JOptionPane.YES_OPTION) {
+				this.taquinGrid.randomizeGrid();
+			}
 		}
 	}
 
