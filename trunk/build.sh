@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version 0.2.1
+# Version 0.5.0
 # Copyright 2020 Justine MARTIN
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 # The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -20,7 +20,7 @@ resDir="res"
 
 projectBuilded=false
 
-# TODO : Test, dl libs, additionnal folder to zip
+# TODO : Additionnal folder to zip
 
 zipProject() {
 	cleanProject
@@ -30,15 +30,41 @@ zipProject() {
 
 	rm -rf "$buildDir"
 
-	tmpZipDir=/tmp/"$jarName"Zip
+	tmpZipDir=.tmp_$(date +"%Y%m%d%H%M%S")/
 	mkdir "$tmpZipDir"
-	
-	cp "$srcDir" "$javadocDir" "$deployDir" "$resDir" "rapport" "$0" "$tmpZipDir" -r
-	
+
+	if [ -d "$srcDir" ]; then
+		cp "$srcDir" "$tmpZipDir" -r
+	fi
+
+	if [ -d "$javadocDir" ]; then
+		cp "$javadocDir" "$tmpZipDir" -r
+	fi
+
+	if [ -d "$testDir" ]; then
+		cp "$testDir""$tmpZipDir" -r
+	fi
+
+	if [ -d "$deployDir" ]; then
+		cp "$deployDir" "$tmpZipDir" -r
+	fi
+
+	if [ -d "$libsDir" ]; then
+		cp "$libsDir" "$tmpZipDir" -r
+	fi
+
+	if [ -d "$resDir" ]; then
+		cp "$resDir" "$tmpZipDir" -r
+	fi
+
+	cp "rapport" "$tmpZipDir" -r
+	cp "$0" "$tmpZipDir" -r
+
 	cd "$tmpZipDir"
-	zip "$zipName" *
-	mv "$zipName" "$BASE_DIR"
-	cd "$BASE_DIR"
+	zip "$zipName" * -r
+	mv "$zipName" ..
+	cd ..
+
 	rm -rf "$tmpZipDir"
 
 	projectBuilded=false
@@ -100,14 +126,14 @@ createJavadoc() {
 	fi
 
 	updateLibs
-	javadoc -subpackages $(echo "$javaMainClass" | sed -E "s/([^.]*)\..*/\1/") -d "$javadocDir" -cp "$srcDir$libs"
+	javadoc -subpackages $(echo "$javaMainClass" | sed -E "s/([^.]*)\..*/\1/") -d "$javadocDir" -cp "$srcDir""$libs"
 }
 
 
 deployProject() {
 	buildProject
 	echo '>deploy'
-	
+
 	if [ -d "$deployDir" ]; then
 		rm -rf "$deployDir"
 	fi
@@ -150,7 +176,26 @@ testProject() {
 	echo '>test'
 
 	updateLibs
-	java -cp "$buildDir$libs" edt.Test
+
+	tmpZipDir=.tmp_$(date +"%Y%m%d%H%M%S")/
+	mkdir "$tmpZipDir"
+	cd "$tmpZipDir"
+
+	wget -q -O hamcrest-core-1.3.jar "https://search.maven.org/remotecontent?filepath=org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+	wget -q -O junit-4.13.jar "https://search.maven.org/remotecontent?filepath=junit/junit/4.13/junit-4.13.jar"
+
+	cd ..
+
+	testLibs="$tmpZipDir"junit-4.13.jar:"$tmpZipDir"hamcrest-core-1.3.jar
+	for classe in $(find "$testDir" -name '*.java');
+	do
+		javac -cp "$testDir""$libs":"$testLibs" -d "$buildDir" "$classe" -Xlint
+		java -cp "$buildDir":"$libs":"$testLibs" org.junit.runner.JUnitCore $(echo "$classe" | sed -E "s/\//./g; s/""$testDir""\.(.*)\.java/\1/")
+
+		rm -f $(echo $classe | sed -E "s/""$testDir""\/(.*).java/""$buildDir""\/\1.class/")
+	done
+
+	rm -rf "$tmpZipDir"
 }
 
 updateLibs() {
@@ -178,7 +223,7 @@ checkConfig() {
 		exit 3
 	fi
 
-	if [ ! -f $srcDir/$(echo "$javaMainClass" | sed -E "s/\./\//g").java ]; then
+	if [ ! -f "$srcDir"/$(echo "$javaMainClass" | sed -E "s/\./\//g").java ]; then
 		echo "La classe principale n'existe pas"
 		exit 3
 	fi
