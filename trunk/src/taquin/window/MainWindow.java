@@ -20,8 +20,8 @@ public class MainWindow extends JFrame {
 	private static final String NUMBER_GRID = "NUMBER";
 	private static final String IMAGE_GRID = "IMAGE";
 
-	private static final int DEFAULT_GRID_WIDTH = 5;
-	private static final int DEFAULT_GRID_HEIGHT = 5;
+	private static final int DEFAULT_GRID_WIDTH = 3;
+	private static final int DEFAULT_GRID_HEIGHT = 3;
 
 	private ImageTaquinGrid imageTaquinGrid;
 	// private GUITaquinGrid guiTaquinGrid;

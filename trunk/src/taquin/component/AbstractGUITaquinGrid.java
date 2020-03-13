@@ -34,39 +34,32 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		addMouseListener(this);
 
 		setFocusable(true);
-		/*addKeyListener(new KeyListener() {
+		addKeyListener(new KeyListener() {
 
 			public void keyTyped(KeyEvent k) {
-				System.out.println("va dans keyTyped");
 			}
 
 			public void keyPressed(KeyEvent k) {
-				System.out.println("va dans keyPressed");
 				if(k.getKeyCode() == KeyEvent.VK_DOWN){
-					System.out.println("bas");
-					//Déplacement bas
+					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.BAS);
 					repaint();
 				} else if(k.getKeyCode() ==  KeyEvent.VK_RIGHT){
-					System.out.println("droite");
-					//Deplacement droite
+					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.DROITE);
 					repaint();
 				}
 				else if(k.getKeyCode() == KeyEvent.VK_UP){
-					System.out.println("haut");
-					//Deplacement haut
+					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.HAUT);
 					repaint();
 				}
 				else if(k.getKeyCode() == KeyEvent.VK_LEFT){
-					System.out.println("gauche");
-					//Deplacement gauche
+					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.GAUCHE);
 					repaint();
 				}
 			}
 
 			public void keyReleased(KeyEvent k) {
-				System.out.println("va dans keyRealeased");
 			}
-		});*/
+		});
 
 		this.taquinGrid = taquinGrid;
 		this.taquinGrid.addTaquinObserver(this);
