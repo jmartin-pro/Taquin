@@ -32,6 +32,8 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		});
 
 		addMouseListener(this);
+
+		setFocusable(true);
 		addKeyListener(new KeyListener() {
 
 			public void keyTyped(KeyEvent k) {
