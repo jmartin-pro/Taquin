@@ -17,10 +17,13 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 		super.paintComponent(g);
 
 		int cellSize = getCellSize();
+		int fontSize = getCellSize()/3;
+		FontMetrics fontMetrics = g.getFontMetrics();
 
 		for(int y = 0 ; y < getTaquinGrid().getHeight(); y++) {
 			for(int x = 0 ; x < getTaquinGrid().getWidth() ; x++) {
-				g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x, cellSize*(y+1));
+				g.setFont(new Font("TimesRoman",Font.BOLD,fontSize));
+				g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x+(cellSize-(fontMetrics.stringWidth(""+getTaquinGrid().getSquare(x,y))))/2, cellSize*(y+1)-(cellSize/3));
 			}
 		}
 
