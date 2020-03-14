@@ -16,6 +16,9 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 	private int xMouse;
 	private int yMouse;
 
+	private int mousePressedX;
+	private int mousePressedY;
+
 	public AbstractGUITaquinGrid(TaquinGrid taquinGrid) {
 		addMouseMotionListener(new MouseMotionListener() {
 			@Override
@@ -111,25 +114,35 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+		this.mousePressedX = e.getX()/getCellSize();
+		this.mousePressedY = e.getY()/getCellSize();
+	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		int cellSize = getCellSize();
-		int mouseCaseX = getXMouse() / cellSize;
-		int mouseCaseY = getYMouse() / cellSize;
-		int xPosVide = this.taquinGrid.getPosXVide();
-		int yPosVide = this.taquinGrid.getPosYVide();
 
-		if(isCaseValid(mouseCaseX, mouseCaseY)) {
-			if(mouseCaseX == xPosVide - 1)
-				this.taquinGrid.move(Direction.DROITE);
-			else if(mouseCaseX == xPosVide + 1)
-				this.taquinGrid.move(Direction.GAUCHE);
-			else if(mouseCaseY == yPosVide - 1)
-				this.taquinGrid.move(Direction.BAS);
-			else if(mouseCaseY == yPosVide + 1)
-				this.taquinGrid.move(Direction.HAUT);
+		int mouseReleasedX = e.getX()/cellSize;
+		int mouseReleasedY = e.getY()/cellSize;
+
+		if (mouseReleasedX == this.mousePressedX && mouseReleasedY == this.mousePressedY){
+
+			int mouseCaseX = getXMouse() / cellSize;
+			int mouseCaseY = getYMouse() / cellSize;
+			int xPosVide = this.taquinGrid.getPosXVide();
+			int yPosVide = this.taquinGrid.getPosYVide();
+
+			if(isCaseValid(mouseCaseX, mouseCaseY)) {
+				if(mouseCaseX == xPosVide - 1)
+					this.taquinGrid.move(Direction.DROITE);
+				else if(mouseCaseX == xPosVide + 1)
+					this.taquinGrid.move(Direction.GAUCHE);
+				else if(mouseCaseY == yPosVide - 1)
+					this.taquinGrid.move(Direction.BAS);
+				else if(mouseCaseY == yPosVide + 1)
+					this.taquinGrid.move(Direction.HAUT);
+			}
 		}
 	}
 
@@ -140,7 +153,9 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+
+	}
 
 	@Override
 	public void moved() {
