@@ -3,19 +3,19 @@ package taquin.observer;
 public interface TaquinGridObservable {
 
 	/**
-	 * @param observer
-	 * @return void
+	 * Ajoute un observer à la liste des observer
+	 * @param observer un observer
 	 */
 	public void addTaquinObserver(TaquinGridObserver observer);
 
 	/**
-	 * @param observer
-	 * @return void
+	 * Supprime un observer à la liste des observer
+	 * @param observer un observer
 	 */
 	public void removeTaquinObserver(TaquinGridObserver observer);
 
 	/**
-	 * @return void
+	 * Notifie un mouvement
 	 */
 	public void notifyMoved();
 
