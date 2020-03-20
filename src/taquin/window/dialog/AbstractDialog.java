@@ -8,18 +8,15 @@ import java.awt.event.*;
 @SuppressWarnings("serial")
 public abstract class AbstractDialog extends JDialog {
 
-	/**
-	 * @param title
-	 * @return void
-	 */
 	public AbstractDialog(JFrame parent, String title) {
 		super(parent, title, true);
 		initDialogUI(parent, title);
 	}
 
 	/**
-	 * @param title
-	 * @return void
+	 * Création d'une boite de dialogue
+	 * @param parent la JFrame qui parente à la boite de dialogue
+	 * @param title le titre de la boite de dialogue
 	 */
 	private void initDialogUI(JFrame parent, String title) {
 
@@ -38,30 +35,37 @@ public abstract class AbstractDialog extends JDialog {
 	}
 
 	/**
+	 * Création du contenu de la boite de dialogue
 	 * @return JComponent
 	 */
 	protected abstract JComponent getMainUI();
 
 	/**
-	 * @return ActionListener
+	 * Action émise après clic sue le bouton "Valider"
+	 * @return ActionListener l'action émise
 	 */
 	protected abstract ActionListener getValidButtonEventHandler();
 
 	/**
-	 * @return JComponent
+	 * Création le layout contenant les boutons "Annuler" et "Valider"
+	 * @return JComponent le layout
 	 */
 	private JComponent getControlButtons() {
+		//Création du bouton "Annuler"
 		JButton boutonAnnuler = new JButton("Annuler");
 		boutonAnnuler.addActionListener(new ActionListener() {
+			//Suppression de la boite de dialogue lorsque l'on clique sur "Annuler"
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				AbstractDialog.this.dispose();
 			}
 		});
 
+		//Création du bouton "Valider"
 		JButton boutonValider = new JButton("Valider");
 		boutonValider.addActionListener(getValidButtonEventHandler());
 
+		//Création du layout des boutons  "Annuler" et "Valider"
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.LINE_AXIS));
 

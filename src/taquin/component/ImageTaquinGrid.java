@@ -15,6 +15,10 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 		setImage(image);
 	}
 
+	/**
+	 * Dessin du taquin avec une image
+	 * @param g l'objet avec lequel on dessine
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -42,10 +46,17 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 		drawGrid(g);
 	}
 
+	/**
+	 * Récupère l'image
+	 */
 	public Image getImage() {
 		return this.image;
 	}
 
+	/**
+	 * Modifie l'image
+	 * @param image la nouvelle image
+	 */
 	public void setImage(Image image) {
 		this.image = image;
 		this.repaint();

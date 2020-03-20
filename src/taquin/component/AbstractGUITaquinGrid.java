@@ -21,11 +21,13 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	public AbstractGUITaquinGrid(TaquinGrid taquinGrid) {
 		addMouseMotionListener(new MouseMotionListener() {
+			//On récupère la positon x et y de la souris
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				xMouse = e.getX();
 				yMouse = e.getY();
 
+				// On redessine au cas où on se trouve sur une nouvelle case
 				repaint();
 			}
 			@Override
@@ -33,31 +35,34 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 			}
 		});
-
+		//Évènements de la souris
 		addMouseListener(this);
 
+		//Permet d'obtenir le focus pour les événements claviers
 		setFocusable(true);
+
+		//Évènements du clavier
 		addKeyListener(new KeyListener() {
 
 			public void keyTyped(KeyEvent k) {
 			}
 
+			//On déplace une case selon la touche du clavier sélectionnée
 			public void keyPressed(KeyEvent k) {
 				if(k.getKeyCode() == KeyEvent.VK_DOWN){
 					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.BAS);
-					repaint();
-				} else if(k.getKeyCode() ==  KeyEvent.VK_RIGHT){
+				}
+				else if(k.getKeyCode() ==  KeyEvent.VK_RIGHT){
 					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.DROITE);
-					repaint();
 				}
 				else if(k.getKeyCode() == KeyEvent.VK_UP){
 					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.HAUT);
-					repaint();
 				}
 				else if(k.getKeyCode() == KeyEvent.VK_LEFT){
 					AbstractGUITaquinGrid.this.taquinGrid.move(Direction.GAUCHE);
-					repaint();
 				}
+
+				repaint();
 			}
 
 			public void keyReleased(KeyEvent k) {
@@ -68,10 +73,18 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		this.taquinGrid.addTaquinObserver(this);
 	}
 
+	/**
+	 * Récupère la taille d'une case
+	 * @return la taille de la case
+	 */
 	protected int getCellSize() {
 		return Math.min(getHeight() / getTaquinGrid().getHeight(), getWidth() / getTaquinGrid().getWidth());
 	}
 
+	/**
+	 * Dessine la grille
+	 * @param g l'objet avec lequel on dessine
+	 */
 	protected void drawGrid(Graphics g) {
 		g.setColor(Color.BLACK);
 
@@ -85,9 +98,14 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		}
 	}
 
+	/**
+	 * Dessine la case sélectionnée
+	 * @param g l'objet avec lequel on dessine
+	 */
 	protected void drawSelectedSquare(Graphics g) {
 		int cellSize = getCellSize();
 
+		// Passage en alpha pour la couleur
 		Graphics2D g2d = (Graphics2D) g;
 		Composite originalComposite = g2d.getComposite();
 
@@ -97,14 +115,22 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 		g2d.setPaint(Color.WHITE);
 
+		// On récupère la case sur laquelle se trouve la souris et on dessine un "overlay" blanc
 		int mouseCaseX = getXMouse() / cellSize;
 		int mouseCaseY = getYMouse() / cellSize;
 		if(isCaseValid(mouseCaseX, mouseCaseY))
 			g2d.fillRect(mouseCaseX * cellSize, mouseCaseY * cellSize, cellSize, cellSize);
 
+		// Retour à une couleur sans alpha
 		g2d.setComposite(originalComposite);
 	}
 
+	/**
+	 * Vérifie si la case peur être déplacée
+	 *	@param x la coordonnée x de la case
+	 *	@param y la coordonnée y de la case
+	 *	@return true si la case peut être déplacée, false sinon
+	 */
 	protected boolean isCaseValid(int x, int y) {
 		int xPosVide = taquinGrid.getPosXVide();
 		int yPosVide = taquinGrid.getPosYVide();
@@ -113,12 +139,20 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 			|| (y == yPosVide + 1 || y == yPosVide - 1) && x == xPosVide && y < taquinGrid.getHeight();
 	}
 
+	/**
+	 * Récupère les coordonnées de la case séléctionnée
+	 * @param e l'événement clic de la souris
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		this.mousePressedX = e.getX()/getCellSize();
 		this.mousePressedY = e.getY()/getCellSize();
 	}
 
+	/**
+	 * Déplace la case séléctionnée après relachement de la souris
+	 * @param e l'événement clic de la souris relaché
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		int cellSize = getCellSize();
@@ -126,6 +160,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		int mouseReleasedX = e.getX()/cellSize;
 		int mouseReleasedY = e.getY()/cellSize;
 
+		//On vérifie si la case où la souris est relachée, est la même que la case cliquée
 		if (mouseReleasedX == this.mousePressedX && mouseReleasedY == this.mousePressedY){
 
 			int mouseCaseX = getXMouse() / cellSize;
@@ -133,6 +168,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 			int xPosVide = this.taquinGrid.getPosXVide();
 			int yPosVide = this.taquinGrid.getPosYVide();
 
+			//Déplacement de la case
 			if(isCaseValid(mouseCaseX, mouseCaseY)) {
 				if(mouseCaseX == xPosVide - 1)
 					this.taquinGrid.move(Direction.DROITE);
@@ -157,25 +193,41 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	}
 
+	/**
+	 * Redessine l'affichage après un mouvement
+	 */
 	@Override
 	public void moved() {
 		this.repaint();
 	}
 
+	/**
+	 *	Change le modèle du taquin
+	 *	@param taquinGrid le taquin
+	 */
 	public void setTaquinGrid(TaquinGrid taquinGrid) {
 		this.taquinGrid.removeTaquinObserver(this);
 		this.taquinGrid = taquinGrid;
 		this.taquinGrid.addTaquinObserver(this);
 	}
 
+	/**
+	 * Récupère le modèle du taquin
+	 */
 	public TaquinGrid getTaquinGrid() {
 		return this.taquinGrid;
 	}
 
+	/**
+	 * Récupère la position en X de la souris
+	 */
 	public int getXMouse() {
 		return this.xMouse;
 	}
 
+	/**
+	 * Récupère la position en Y de la souris
+	 */
 	public int getYMouse() {
 		return this.yMouse;
 	}

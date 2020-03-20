@@ -13,6 +13,10 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 		super(taquinGrid);
 	}
 
+	/**
+	 * Dessin du taquin avec des nombres
+	 * @param g l'objet avec lequel on dessine
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
