@@ -194,6 +194,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 	/**
 	 * Redessine l'affichage après un mouvement
 	 */
+
 	@Override
 	public void moved() {
 		this.repaint();

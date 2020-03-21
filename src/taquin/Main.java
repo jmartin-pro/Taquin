@@ -11,7 +11,6 @@ public class Main {
 	public static void main(String[] args) {
 		int w = 0;
 		int h = 0;
-
 		if(args.length == 2) {
 			try {
 				w = Integer.parseInt(args[0]);
