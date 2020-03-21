@@ -41,14 +41,14 @@ public abstract class AbstractDialog extends JDialog {
 	protected abstract JComponent getMainUI();
 
 	/**
-	 * Action émise après clic sue le bouton "Valider"
-	 * @return ActionListener l'action émise
+	 * Action émise après clic sur le bouton "Valider"
+	 * @return l'action émise
 	 */
 	protected abstract ActionListener getValidButtonEventHandler();
 
 	/**
-	 * Création le layout contenant les boutons "Annuler" et "Valider"
-	 * @return JComponent le layout
+	 * Création du layout contenant les boutons "Annuler" et "Valider"
+	 * @return le layout créé
 	 */
 	private JComponent getControlButtons() {
 		//Création du bouton "Annuler"

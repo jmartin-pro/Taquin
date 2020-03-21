@@ -21,13 +21,12 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	public AbstractGUITaquinGrid(TaquinGrid taquinGrid) {
 		addMouseMotionListener(new MouseMotionListener() {
-			//On récupère la positon x et y de la souris
+			//On récupère la position x et y de la souris
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				xMouse = e.getX();
 				yMouse = e.getY();
 
-				// On redessine au cas où on se trouve sur une nouvelle case
 				repaint();
 			}
 			@Override
@@ -151,7 +150,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	/**
 	 * Déplace la case séléctionnée après relachement de la souris
-	 * @param e l'événement clic de la souris relaché
+	 * @param e l'événement clic de la souris relachée
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
@@ -160,7 +159,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		int mouseReleasedX = e.getX()/cellSize;
 		int mouseReleasedY = e.getY()/cellSize;
 
-		//On vérifie si la case où la souris est relachée, est la même que la case cliquée
+		//Vérifie si la case où la souris est relachée, est la même que la case cliquée
 		if (mouseReleasedX == this.mousePressedX && mouseReleasedY == this.mousePressedY){
 
 			int mouseCaseX = getXMouse() / cellSize;
@@ -212,6 +211,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	/**
 	 * Récupère le modèle du taquin
+	 * @return le modèle du taquin
 	 */
 	public TaquinGrid getTaquinGrid() {
 		return this.taquinGrid;
@@ -219,6 +219,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	/**
 	 * Récupère la position en X de la souris
+	 * @return la position en X de la souris
 	 */
 	public int getXMouse() {
 		return this.xMouse;
@@ -226,6 +227,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 
 	/**
 	 * Récupère la position en Y de la souris
+	 * @return la position en Y de la souris
 	 */
 	public int getYMouse() {
 		return this.yMouse;

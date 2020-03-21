@@ -58,40 +58,40 @@ public class NewGameDialog extends AbstractDialog {
 	}
 
 	/**
-	 * Action émise après clic sue le bouton "Valider"
+	 * Action émise après clic sur le bouton "Valider"
 	 * @return ActionListener l'action émise
 	 */
 	@Override
 	protected ActionListener getValidButtonEventHandler() {
 		return (ActionEvent e) -> {
-			//Vérification de la largeur mise par l'utilsateur correspond à un nombre
+			//Vérification que la largeur mise par l'utilsateur correspond bien à un nombre
 			try {
 				this.widthSelected = Integer.parseInt(widthTextField.getText());
 			} catch(NumberFormatException ex) {
 				this.widthSelected = null;
 			}
 
-			//Vérification de la hauteur mise par l'utilsateur correspond à un nombre
+			//Vérification que la hauteur mise par l'utilsateur correspond bien à un nombre
 			try {
 				this.heightSelected = Integer.parseInt(heightTextField.getText());
 			} catch(NumberFormatException ex) {
 				this.heightSelected = null;
 			}
 
-			//On supprime la boite de dialogue après clic sue "Valider"
+			//On supprime la boite de dialogue après clic sur "Valider"
 			NewGameDialog.this.dispose();
 		};
 	}
 
 	/**
-	 * Récupère la largeur sélectionnée par l'utilsiateur
+	 * Récupère la largeur sélectionnée par l'utilisateur
 	 */
 	public Integer getSelectedWidth() {
 		return this.widthSelected;
 	}
 
 	/**
-	 * Récupère la heuteur sélectionnée par l'utilsiateur
+	 * Récupère la hauteur sélectionnée par l'utilisateur
 	 */
 	public Integer getSelectedHeight() {
 		return this.heightSelected;

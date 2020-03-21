@@ -33,7 +33,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 	 * Création de la fenêtre du jeu
 	 * @param w la largeur de la fenêtre
 	 * @param h la hauteur de la fenêtre
-	 * @param name le nom de la fenêtre 
+	 * @param name le nom de la fenêtre
 	 */
 	public MainWindow(int w, int h, String name) {
 		this.setTitle(name);
@@ -44,7 +44,6 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 		createMenuBar();
 		createMainUI();
 
-		//this.pack();
 		this.setVisible(true);
 	}
 
@@ -65,7 +64,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 
 		//Evenement de l'item "nouvelle partie"
 		itemNewGame.addActionListener((ActionEvent e) -> {
-			//Appel à la boite de dialogue permettant de sélectionner la taille du Taquin
+			//Appel à la boite de dialogue permettant de sélectionner la taille du taquin
 			NewGameDialog dialog = new NewGameDialog(this);
 			Integer taquinGridWidth = dialog.getSelectedWidth();
 			Integer taquinGridHeight = dialog.getSelectedHeight();
@@ -73,7 +72,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 			//On vérifie les tailles rentrées
 			if(taquinGridWidth != null && taquinGridHeight != null) {
 				if(taquinGridWidth > 2 && taquinGridWidth < 23 && taquinGridHeight > 2 && taquinGridHeight < 23) {
-					//Dans le cas ou elles sont correctes, on créer le taquin avec ces tailles
+					//Dans le cas ou les tailles sont correctes, on créer le taquin avec ces tailles
 					newGame(taquinGridWidth, taquinGridHeight);
 				} else{
 					//Sinon on affiche une erreur dans une boite de dialogue
@@ -109,12 +108,12 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 
 			int returnVal = imageChoosed.showOpenDialog(MainWindow.this);
 			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				//On essaye de lire le fichier chois par l'utilisateur
+				//On essaye de lire le fichier choisi par l'utilisateur
 				try {
 					Image image = ImageIO.read(new File(imageChoosed.getSelectedFile().getPath()));
 					imageTaquinGrid.setImage(image);
 				} catch (IOException ex) {
-					//On renvoie un message d'erreur si le fichier n'est pas valide
+					//Renvoie un message d'erreur si le fichier n'est pas valide
 					JOptionPane.showMessageDialog(MainWindow.this, "Impossible d'ouvrir le fichier", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}
