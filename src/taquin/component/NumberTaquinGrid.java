@@ -25,26 +25,17 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 
 		for(int y = 0 ; y < getTaquinGrid().getHeight(); y++) {
 			for(int x = 0 ; x < getTaquinGrid().getWidth() ; x++) {
-<<<<<<< .mine
-				if(getTaquinGrid().getSquare(x,y) != -1){
+				if(getTaquinGrid().getSquare(x,y) != TaquinGrid.EMPTY_SQUARE){
 					g.setFont(new Font("TimesRoman",Font.BOLD,fontSize));
+					FontMetrics fontMetrics = g.getFontMetrics();
+
 					g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x+(cellSize-(fontMetrics.stringWidth(""+getTaquinGrid().getSquare(x,y))))/2, cellSize*(y+1)-(cellSize/3));
 				}
-||||||| .r38
-				g.setFont(new Font("TimesRoman",Font.BOLD,fontSize));
-				g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x+(cellSize-(fontMetrics.stringWidth(""+getTaquinGrid().getSquare(x,y))))/2, cellSize*(y+1)-(cellSize/3));
-=======
-				g.setFont(new Font("TimesRoman",Font.BOLD,fontSize));
-				FontMetrics fontMetrics = g.getFontMetrics();
-				
-				g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x+(cellSize-(fontMetrics.stringWidth(""+getTaquinGrid().getSquare(x,y))))/2, cellSize*(y+1)-(cellSize/3));
->>>>>>> .r41
 			}
 		}
 
 		drawSelectedSquare(g);
 		drawGrid(g);
 	}
-
 
 }

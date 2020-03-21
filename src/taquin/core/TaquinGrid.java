@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class TaquinGrid {
+public class TaquinGrid implements TaquinGridObservable {
 
-	public static int EMPTY_SQUARE = -1;
+	public static final int EMPTY_SQUARE = -1;
 
 	private int[][] grid;
 	private int width, height;
@@ -29,10 +29,10 @@ public class TaquinGrid {
 
 		createGrid();
 	}
-	
+
 	/**
-	  * Création de la grille du taquin
-	  */
+	 * Création de la grille du taquin
+	 */
 	private void createGrid() {
 		this.grid = new int[this.width][this.height];
 
@@ -52,26 +52,26 @@ public class TaquinGrid {
 	}
 
 	/**
-	  * Création de la grille du taquin
-	  */
+	 * Création de la grille du taquin
+	 */
 	public void randomizeGrid() {
 		randomizeGrid(width * height * 100);
 	}
 
 	/**
-	  * Mélange les cases du taquin selon un nombre de déplacements aléatoires
-	  * @param n le nombre de mouvements
-	  */
+	 * Mélange aléatoirement les cases du taquin selon un nombre de déplacements
+	 * @param n le nombre de mouvements
+	 */
 	public void randomizeGrid(int n) {
 		this.shouldNotify = false;
 		Random r = new Random();
 
-		//Déplacement des cases, un certain nombre de fois
+		//Déplacement des cases n fois
 		for (int i = 0; i < n; i++) {
 			int nbrRandom = r.nextInt(4);
 			Direction dir = null;
 
-			//Définition du déplacement selon le nombre tiré aléatoirement
+			//Déplacement selon le nombre tiré aléatoirement
 			if (nbrRandom == 0) {
 				dir = Direction.HAUT;
 			} else if (nbrRandom == 1) {
@@ -87,20 +87,21 @@ public class TaquinGrid {
 				i -= 1;
 			}
 		}
-		//On re-génère les déplacements dans le cas où la grille est la même qu'à l'état initial
+		//On re-génère les déplacements dans le cas où la grille est terminée une fois mélangée
 		if (finished()){
-			randomizeGrid(n );
+			randomizeGrid(n);
 		}
 
 		this.shouldNotify = true;
 	}
 
 	/**
-	 * Déplacement d'un case
+	 * Déplacement d'une case
 	 * @param direction une direction donnée
-	 * @return true si le mouvement à été effectué, fakse sinon
+	 * @return true si le mouvement à été effectué, false sinon
 	 */
 	public boolean move(Direction direction) {
+		// Si le mouvement est impossible on retourne false
 		if (direction == Direction.HAUT && this.posYVide == this.height-1) {
 			return false;
 		} else if (direction == Direction.DROITE && this.posXVide == 0) {
@@ -111,6 +112,7 @@ public class TaquinGrid {
 			return false;
 		}
 
+		// Effectue le mouvement et retourne true
 		if (direction == Direction.HAUT) {
 			this.grid[posXVide][posYVide] = this.grid[posXVide][posYVide+1];
 			this.grid[posXVide][posYVide+1] = EMPTY_SQUARE;
@@ -144,9 +146,11 @@ public class TaquinGrid {
 	public boolean finished() {
 		for(int y = 0 ; y < this.height ; y++) {
 			for(int x = 0 ; x < this.width ; x++) {
+				// Si c'est la dernière case et qu'il s'agit bien de la case vide
 				if(y == this.height-1 && x == this.width - 1 && this.grid[x][y] == EMPTY_SQUARE)
 					continue;
 
+				// Ce n'est pas le bon nombre, on retourne false
 				if(this.grid[x][y] != x+y*this.width+1) {
 					return false;
 				}
@@ -156,25 +160,17 @@ public class TaquinGrid {
 		return true;
 	}
 
-	/**
-	 * Ajout de l'observer à la liste d'observer
-	 * @param observer un observer
-	 */
+	@Override
 	public void addTaquinObserver(TaquinGridObserver observer) {
 		taquinGridObserver.add(observer);
 	}
 
-	/**
-	 * Supression de l'observer à la liste d'observer
-	 * @param observer
-	 */
+	@Override
 	public void removeTaquinObserver(TaquinGridObserver observer) {
 		taquinGridObserver.remove(observer);
 	}
 
-	/**
-	 * Notifier lorsqu'il y a un mouvement
-	 */
+	@Override
 	public void notifyMoved() {
 		if(!this.shouldNotify)
 			return;
@@ -215,16 +211,16 @@ public class TaquinGrid {
 	}
 
 	/**
-	 * Récupère la hauteur en x de la souris
-	 * @return la hauteur en x de la souris
+	 * Récupère la position x de la case vide
+	 * @return la position x de la case vide
 	 */
 	public int getPosXVide() {
 		return this.posXVide;
 	}
 
 	/**
-	 * Récupère la hauteur en y de la souris
-	 * @return la hauteur en y de la souris
+	 * Récupère la position y de la case vide
+	 * @return la position y de la case vide
 	 */
 	 public int getPosYVide() {
 		return this.posYVide;

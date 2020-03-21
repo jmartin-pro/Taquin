@@ -81,10 +81,6 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 	 */
 	@Override
 	public void moved() {
-<<<<<<< .mine
-		String espace = "";
-||||||| .r38
-=======
 		showGrid();
 	}
 
@@ -92,25 +88,18 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 	 * Affichage du taquin
 	 */
 	public void showGrid(){
->>>>>>> .r41
 		for (int y = 0 ; y < taquinGrid.getHeight() ; y++) {
 			System.out.print(" | ");
 			for (int x = 0 ; x < taquinGrid.getWidth() ; x++) {
-				if (taquinGrid.getSquare(x, y)<10){
-					espace = " ";
-				} else {
-					espace = "";
-				}
-				if (taquinGrid.getSquare(x, y) == -1){
-					System.out.print(espace+"  | ");
-				} else {
-					System.out.print(espace+taquinGrid.getSquare(x, y) +" | ");
-				}
+				if(taquinGrid.getSquare(x, y) == TaquinGrid.EMPTY_SQUARE)
+					System.out.print(" ");
+				else
+					System.out.print(taquinGrid.getSquare(x, y));
+
+				System.out.print(" | ");
 			}
 
 			System.out.println();
 		}
-
-		System.out.println();
 	}
 }

@@ -3,7 +3,7 @@ package taquin.observer;
 public interface TaquinGridObserver {
 
 	/**
-	 * Action réalisée après mouvement
+	 * Méthode appelée après mouvement
 	 */
 	public void moved();
 

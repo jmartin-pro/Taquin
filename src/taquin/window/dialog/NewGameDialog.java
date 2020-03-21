@@ -17,10 +17,6 @@ public class NewGameDialog extends AbstractDialog {
 		super(parent, "Nouvelle partie");
 	}
 
-	/**
-	 * Création du contenu de la boite de dialogue lors de la création d'une nouvelle partie
-	 * @return la boite de dialogue
-	 */
 	@Override
 	protected JComponent getMainUI() {
 		JPanel mainContent = new JPanel();
@@ -57,10 +53,6 @@ public class NewGameDialog extends AbstractDialog {
 		return mainContent;
 	}
 
-	/**
-	 * Action émise après clic sur le bouton "Valider"
-	 * @return ActionListener l'action émise
-	 */
 	@Override
 	protected ActionListener getValidButtonEventHandler() {
 		return (ActionEvent e) -> {
