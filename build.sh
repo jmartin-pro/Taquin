@@ -15,7 +15,7 @@ deployDir="dist"
 javadocDir="doc"
 libsDir=""
 srcDir="src"
-testDir=""
+testDir="test"
 resDir="res"
 
 projectBuilded=false

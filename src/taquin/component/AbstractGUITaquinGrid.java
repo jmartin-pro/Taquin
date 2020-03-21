@@ -189,9 +189,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 	public void mouseExited(MouseEvent e) {}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-
-	}
+	public void mouseClicked(MouseEvent e) {}
 
 	/**
 	 * Redessine l'affichage après un mouvement
