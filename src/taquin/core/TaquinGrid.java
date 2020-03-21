@@ -21,6 +21,10 @@ public class TaquinGrid implements TaquinGridObservable {
 	private List<TaquinGridObserver> taquinGridObserver;
 
 	public TaquinGrid(int width, int height) {
+		this(width, height, true);
+	}
+	
+	public TaquinGrid(int width, int height, boolean randomize) {
 		this.width = width;
 		this.height = height;
 		this.shouldNotify = true;
@@ -28,6 +32,9 @@ public class TaquinGrid implements TaquinGridObservable {
 		taquinGridObserver = new ArrayList<>();
 
 		createGrid();
+
+		if(randomize)
+			randomizeGrid();
 	}
 
 	/**
@@ -47,8 +54,6 @@ public class TaquinGrid implements TaquinGridObservable {
 
 		this.posXVide = this.width-1;
 		this.posYVide = this.height-1;
-
-		randomizeGrid();
 	}
 
 	/**

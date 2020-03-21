@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Version 0.5.0
+# Version 0.5.1
 # Copyright 2020 Justine MARTIN
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 # The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -189,7 +189,7 @@ testProject() {
 	testLibs="$tmpZipDir"junit-4.13.jar:"$tmpZipDir"hamcrest-core-1.3.jar
 	for classe in $(find "$testDir" -name '*.java');
 	do
-		javac -cp "$testDir""$libs":"$testLibs" -d "$buildDir" "$classe" -Xlint
+		javac -cp "$testDir""$libs":"$testLibs":"$srcDir" -d "$buildDir" "$classe" -Xlint
 		java -cp "$buildDir":"$libs":"$testLibs" org.junit.runner.JUnitCore $(echo "$classe" | sed -E "s/\//./g; s/""$testDir""\.(.*)\.java/\1/")
 
 		rm -f $(echo $classe | sed -E "s/""$testDir""\/(.*).java/""$buildDir""\/\1.class/")
