@@ -15,7 +15,7 @@ public abstract class AbstractDialog extends JDialog {
 
 	/**
 	 * Création d'une boite de dialogue
-	 * @param parent la JFrame qui parente à la boite de dialogue
+	 * @param parent la JFrame parente à la boite de dialogue
 	 * @param title le titre de la boite de dialogue
 	 */
 	private void initDialogUI(JFrame parent, String title) {
@@ -35,13 +35,13 @@ public abstract class AbstractDialog extends JDialog {
 	}
 
 	/**
-	 * Création du contenu de la boite de dialogue
+	 * Création du contenu centrale de la boite de dialogue
 	 * @return JComponent
 	 */
 	protected abstract JComponent getMainUI();
 
 	/**
-	 * Action émise après clic sur le bouton "Valider"
+	 * Action émise lors d'un clic sur le bouton "Valider"
 	 * @return l'action émise
 	 */
 	protected abstract ActionListener getValidButtonEventHandler();

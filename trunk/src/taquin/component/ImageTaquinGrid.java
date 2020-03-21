@@ -24,6 +24,8 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 		super.paintComponent(g);
 
 		int cellSize = getCellSize();
+		
+		// On détermine combien de pixels on doit prendre au minimum pour remplir la grille
 		float factor = Math.min((float)image.getWidth(null) / (float)(getTaquinGrid().getWidth() * cellSize), (float)image.getHeight(null) / (float)(getTaquinGrid().getHeight() * cellSize));
 
 		for(int y = 0 ; y < getTaquinGrid().getHeight() ; y++) {

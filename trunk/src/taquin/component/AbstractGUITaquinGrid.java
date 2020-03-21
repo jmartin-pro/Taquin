@@ -159,7 +159,7 @@ public class AbstractGUITaquinGrid extends JPanel implements TaquinGridObserver,
 		int mouseReleasedX = e.getX()/cellSize;
 		int mouseReleasedY = e.getY()/cellSize;
 
-		//Vérifie si la case où la souris est relachée, est la même que la case cliquée
+		//Vérifie si la case où la souris est relachée, est la même que la case cliquée au départ
 		if (mouseReleasedX == this.mousePressedX && mouseReleasedY == this.mousePressedY){
 
 			int mouseCaseX = getXMouse() / cellSize;

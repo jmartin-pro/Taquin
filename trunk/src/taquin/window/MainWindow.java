@@ -82,21 +82,21 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 		});
 
 		//Création de la sous-catégorie "Mode image" de "Mode"
-		JCheckBoxMenuItem itemImage = new JCheckBoxMenuItem("Mode image");
-		itemImage.setState(true);
-		menuAffichage.add(itemImage);
+		JCheckBoxMenuItem itemGridType = new JCheckBoxMenuItem("Mode image");
+		itemGridType.setState(true);
+		menuAffichage.add(itemGridType);
 		//Evenement de l'item "mode image"
-		itemImage.addItemListener((ItemEvent e) -> {
-			if(itemImage.getState())
+		itemGridType.addItemListener((ItemEvent e) -> {
+			if(itemGridType.getState())
 				showTaquinGrid(IMAGE_GRID);
 			else
 				showTaquinGrid(NUMBER_GRID);
 		});
 		//Création de la sous-catégorie "Changer l'image" de "Mode"
-		JMenuItem itemChiffre = new JMenuItem("Changer l'image");
-		menuAffichage.add(itemChiffre);
+		JMenuItem itemChangerImage = new JMenuItem("Changer l'image");
+		menuAffichage.add(itemChangerImage);
 		//Evenement de l'item "mode chiffres"
-		itemChiffre.addActionListener((ActionEvent e) -> {
+		itemChangerImage.addActionListener((ActionEvent e) -> {
 			//Liste des extensions de fichier autorisées
 			FileNameExtensionFilter imagesFilter = new FileNameExtensionFilter("Fichiers image", "png", "bmp", "jpg", "jpeg");
 
@@ -132,7 +132,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 		setLayout(new CardLayout());
 		newGame(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
 
-		//On ajoute l'ensemble des calques, un JPanel et son nom
+		//On ajoute l'ensemble des "cartes", le CardLayout et son nom
 		this.add(imageTaquinGrid, IMAGE_GRID);
 		this.add(numberTaquin, NUMBER_GRID);
 
@@ -170,7 +170,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 	}
 
 	/**
-	 * Affichage du jeu s'il s'agit du mode "Image" ou "Nombre"
+	 * Affichage de la bonne grille en fonction qu'il s'agisse du mode "Image" ou "Nombre"
 	 * @param gridType le type d'affichage
 	 */
 	private void showTaquinGrid(String gridType) {
@@ -190,7 +190,7 @@ public class MainWindow extends JFrame implements TaquinGridObserver {
 	@Override
 	public void moved() {
 		if (this.taquinGrid.finished() == true){
-			//Affichage du taquin au moment où il est gagné
+			//Actualise l'affichage du taquin au moment où il est gagné
 			imageTaquinGrid.repaint();
 			numberTaquin.repaint();
 
