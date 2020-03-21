@@ -24,13 +24,13 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 	 * Démarre une nouvelle partie
 	 */
 	public void newGame() {
-		//Le temps du mélange on n'écoute plus les événements.
+		//Pendant mélange on n'écoute plus les événements.
 		this.taquinGrid.removeTaquinObserver(this);
 		//Mélange du taquin
 		this.taquinGrid.randomizeGrid();
 		//Réécoute les événements
 		this.taquinGrid.addTaquinObserver(this);
-		//Affichage de la grille
+		//Affichage de la grille du taquin
 		this.showGrid();
 
 		//On joue tant que la partie n'est pas terminée
@@ -61,11 +61,11 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 			System.out.println((i+1) + " - " + Direction.values()[i]);
 		}
 
-		//Entrée clavier de l'utilisateur du mouvement
+		//Entrée clavier du mouvement par l'utilisateur
 		Scanner input = new Scanner(System.in);
 		int dirIndex = input.nextInt();
 
-		//Vérification du mouvement choisi si il est possible
+		//Vérification si le mouvement choisi est possible
 		if(dirIndex < 1 || dirIndex > Direction.values().length) {
 			System.out.println("Merci de renseigner une action valide");
 			System.out.println();
@@ -77,7 +77,7 @@ public class ConsoleTaquinGrid implements TaquinGridObserver {
 	}
 
 	/**
-	 * Affichage du taquin  après mouvement
+	 * Affichage du taquin après mouvement
 	 */
 	@Override
 	public void moved() {

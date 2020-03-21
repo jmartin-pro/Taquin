@@ -48,6 +48,7 @@ public class ImageTaquinGrid extends AbstractGUITaquinGrid {
 
 	/**
 	 * Récupère l'image
+	 * @return l'image du taquin
 	 */
 	public Image getImage() {
 		return this.image;

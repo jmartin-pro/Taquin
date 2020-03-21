@@ -29,6 +29,7 @@ public class TaquinGrid {
 
 		createGrid();
 	}
+	
 	/**
 	  * Création de la grille du taquin
 	  */
@@ -58,14 +59,14 @@ public class TaquinGrid {
 	}
 
 	/**
-	  * Mélange les cases du Taquin selon un nombre de déplacements aléatoires
+	  * Mélange les cases du taquin selon un nombre de déplacements aléatoires
 	  * @param n le nombre de mouvements
 	  */
 	public void randomizeGrid(int n) {
 		this.shouldNotify = false;
 		Random r = new Random();
 
-		//Déplacement des cases un certain nombre de fois
+		//Déplacement des cases, un certain nombre de fois
 		for (int i = 0; i < n; i++) {
 			int nbrRandom = r.nextInt(4);
 			Direction dir = null;
@@ -156,7 +157,7 @@ public class TaquinGrid {
 	}
 
 	/**
-	 * Ajout de l'observer de la liste d'observer
+	 * Ajout de l'observer à la liste d'observer
 	 * @param observer un observer
 	 */
 	public void addTaquinObserver(TaquinGridObserver observer) {
@@ -164,9 +165,8 @@ public class TaquinGrid {
 	}
 
 	/**
-	 * Supression de l'observer de la liste d'observer
+	 * Supression de l'observer à la liste d'observer
 	 * @param observer
-	 * @return void
 	 */
 	public void removeTaquinObserver(TaquinGridObserver observer) {
 		taquinGridObserver.remove(observer);
@@ -198,19 +198,35 @@ public class TaquinGrid {
 		return grid[x][y];
 	}
 
+	/**
+	 * Récupère la hauteur du taquin
+	 * @return la hauteur du taquin
+	 */
 	public int getHeight() {
 		return this.height;
 	}
 
+	/**
+	 * Récupère la largeur du taquin
+	 * @return la largeur du taquin
+	 */
 	public int getWidth() {
 		return this.width;
 	}
 
+	/**
+	 * Récupère la hauteur en x de la souris
+	 * @return la hauteur en x de la souris
+	 */
 	public int getPosXVide() {
 		return this.posXVide;
 	}
 
-	public int getPosYVide() {
+	/**
+	 * Récupère la hauteur en y de la souris
+	 * @return la hauteur en y de la souris
+	 */
+	 public int getPosYVide() {
 		return this.posYVide;
 	}
 }
