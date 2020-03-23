@@ -23,7 +23,7 @@ public class TaquinGrid implements TaquinGridObservable {
 	public TaquinGrid(int width, int height) {
 		this(width, height, true);
 	}
-	
+
 	public TaquinGrid(int width, int height, boolean randomize) {
 		this.width = width;
 		this.height = height;
