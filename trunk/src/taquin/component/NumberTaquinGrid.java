@@ -28,8 +28,9 @@ public class NumberTaquinGrid extends AbstractGUITaquinGrid {
 				if(getTaquinGrid().getSquare(x,y) != TaquinGrid.EMPTY_SQUARE){
 					g.setFont(new Font("TimesRoman",Font.BOLD,fontSize));
 					FontMetrics fontMetrics = g.getFontMetrics();
+					String text = ""+getTaquinGrid().getSquare(x,y);
 
-					g.drawString(""+getTaquinGrid().getSquare(x,y), cellSize*x+(cellSize-(fontMetrics.stringWidth(""+getTaquinGrid().getSquare(x,y))))/2, cellSize*(y+1)-(cellSize/3));
+					g.drawString(text, cellSize*x + (cellSize - (fontMetrics.stringWidth(text)))/2, cellSize*(y+1)-(cellSize/3));
 				}
 			}
 		}

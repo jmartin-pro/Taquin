@@ -28,8 +28,6 @@ zipProject() {
 	deployProject
 	echo '>zip'
 
-	rm -rf "$buildDir"
-
 	tmpZipDir=.tmp_$(date +"%Y%m%d%H%M%S")/
 	mkdir "$tmpZipDir"
 
@@ -66,8 +64,6 @@ zipProject() {
 	cd ..
 
 	rm -rf "$tmpZipDir"
-
-	projectBuilded=false
 }
 
 showCommand() {
