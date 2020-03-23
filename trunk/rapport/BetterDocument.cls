@@ -143,6 +143,7 @@
 \RequirePackage[section]{placeins} % Permet de bloquer les floats pour ne pas les faire dépasser d'une section par ex
 \RequirePackage{setspace} % Permet de changer l'interligne
 \RequirePackage{tabularx} % Permet d'utiliser les tableaux
+\RequirePackage{multirow}
 \RequirePackage{wrapfig} % Permet d'utiliser les wrapfigure
 \RequirePackage{xcolor} % Permet d'utiliser les couleurs
 
@@ -274,7 +275,7 @@
 
 % Tabular
 \setlength{\arrayrulewidth}{0.2mm}
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1}
 \setlength{\tabcolsep}{8pt}
 
 % URL et liens
