@@ -1,98 +1,116 @@
 \chapter{Aspects techniques}
 
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{algorithm}
-\usepackage{algorithmic}
+	\section{Mise en place de MVC}
 
-\begin{document}
+		\subsection{Modèle}
 
-\section{Algo}
-Tout d'abord, voici la class TaquinGrid qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore dire si le joueur à gagner ou pas.
-\newline
-\\
-Cette algo mermet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille.
-\begin{algorithm}
-    \caption{createGrid():void}
-    \begin{algorithmic}
-        \STATE $this.grid \leftarrow $int $[this.width][this.height]$
-        
-        \FOR{$y = 0; y < this.height; y++$}
-            \FOR{$x = 0; x < this.width; x++$}
-                \STATE $this.grid[x][y] \leftarrow x+y*this.width+1$
-            \ENDFOR
-        \ENDFOR
-        
-        \STATE $this.grid[this.width-1][this.height-1] \leftarrow -1$
-        \STATE $this.posXVide \leftarrow this.width-1$
-        \STATE $this.posYVide \leftarrow this.height-1$
-    \end{algorithmic}
-\end{algorithm}
-\newline
-La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois.
-\\
-\begin{algorithm}
-    \caption{randomizeGrid(int n):void}
-    \begin{algorithmic}
-        \STATE $r\leftarrow new$ Randow()
-        
-        \FOR{int $i = 0; i < n; i++$}
-            \STATE $nbrRandom \leftarrow r.nextInt(4)$
-            \STATE  $dir \leftarrow null$
-            \IF{$nbrRandom == 0$}
-                \STATE $dir \leftarrow HAUT$
-            \ELSIF{$nbrRandom == 1$}
-                \STATE $dir \leftarrow DROITE$
-            \ELSIF{$nbrRandom == 1$}
-                \STATE $dir \leftarrow BAS$
-            \ELSIF{$nbrRandom == 1$}
-                \STATE $dir \leftarrow GAUCHE$
-            \ENDIF
-            
-            \IF{$!move(dir)$}
-                \STATE $i \leftarrow 1-i$
-            \ENDIF
-        \ENDFOR
-        
-        \IF{$finisehd()$}
-            \STATE $randomieGrid(int n)$
-        \ENDIF
-    \end{algorithmic}
-\end{algorithm}
-\newline
-La méthode move() permet d'effectuer des déplacement dans la grille grâce aux mouvement que l'on envoie dans la méthode (variable \textit{direction}).
-\begin{algorithm}
-    \caption{move(Direction direction):boolean}
-    \begin{algorithmic}
-        \IF{$direction $ == $HAUT$ \AND $this.posYVide $ == $this.height-1$}
-            \RETURN false
-        \ELSIF{$direction $== $DROITE$ \AND $this.posXVide $== $0$}
-            \RETURN false
-        \ELSIF{$direction $== $BAS$ \AND $this.posYVide $== $0$}
-            \RETURN false
-        \ELSIF{$direction $== $GAUCHE$ \AND $this.posXVide $== $this.width-1$}
-            \RETURN false
-        \ENDIF
-            
-        \IF{$direction $ == $HAUT$}
-            \STATE $this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide+1]$
-            \STATE $this.grid[posXVide][posYVide+1] \leftarrow -1$
-            \STATE $this.posYVide++$
-        \ELSIF{$direction $ == $DROITE$}
-            \STATE $this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide-1][posYVide]$
-            \STATE $this.grid[posXVide-1][posYVide] \leftarrow -1$
-            \STATE $this.posYVide--$
-        \ELSIF{$direction $ == $BAS$}
-            \STATE $this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide-1]$
-            \STATE $this.grid[posXVide][posYVide-1] \leftarrow -1$
-            \STATE $this.posYVide--$
-        \ELSIF{$direction $ == $GAUCHE$}
-            \STATE $this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide+1][posYVide]$
-            \STATE $this.grid[posXVide+1][posYVide] \leftarrow -1$
-            \STATE $this.posYVide++$
-        \ENDIF
-        \RETURN true
-    \end{algorithmic}
-\end{algorithm}
 
-\end{document}
+
+		\subsection{Pattern Observer}
+
+
+
+		\subsection{Vue-Contrôleur}
+
+
+
+	\section{TaquinGrid}
+
+		Tout d'abord, voici la class TaquinGrid qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore dire si le joueur à gagner ou pas.
+
+		Cette algo mermet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille.
+
+		\begin{algorithm}
+			\caption{createGrid():void}
+			$this.grid \leftarrow $int $[this.width][this.height]$
+
+			\For{$y = 0; y < this.height; y++$}{
+				\For{$x = 0; x < this.width; x++$}{
+					$this.grid[x][y] \leftarrow x+y*this.width+1$
+				}
+			}
+
+			$this.grid[this.width-1][this.height-1] \leftarrow -1$
+			$\leftarrow this.width-1$
+			$this.posYVide \leftarrow this.height-1$
+		\end{algorithm}
+
+		La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois.
+		\begin{algorithm}
+			\caption{randomizeGrid(int n):void}
+			$r\leftarrow new$ Randow()
+
+			\For{int $i = 0; i < n; i++$}{
+				$nbrRandom \leftarrow r.nextInt(4)$
+				$dir \leftarrow null$
+				\uIf{$nbrRandom == 0$}{
+					$dir \leftarrow HAUT$
+				}\uElseIf{$nbrRandom == 1$}{
+					$dir \leftarrow DROITE$
+				}\uElseIf{$nbrRandom == 1$}{
+					$dir \leftarrow BAS$
+				}\uElseIf{$nbrRandom == 1$}{
+					$dir \leftarrow GAUCHE$
+				}
+
+				\uIf{$!move(dir)$}{
+					$i \leftarrow 1-i$
+				}
+			}
+
+			\uIf{$finisehd()$}{
+				$randomieGrid(int n)$
+			}
+		\end{algorithm}
+
+		La méthode move() permet d'effectuer des déplacement dans la grille grâce aux mouvement que l'on envoie dans la méthode (variable \textit{direction}).
+
+		\begin{algorithm}
+			\caption{move(Direction direction):boolean}
+				\uIf{$direction $ == $HAUT$ \&\& $this.posYVide $ == $this.height-1$}{
+					\Return false
+				} \uElseIf{$direction $== $DROITE$ \&\& $this.posXVide $== $0$}{
+					\Return false
+				} \uElseIf{$direction $== $BAS$ \&\& $this.posYVide $== $0$}{
+					\Return false
+				} \uElseIf{$direction $== $GAUCHE$ \&\& $this.posXVide $== $this.width-1$}{
+					\Return false
+				}
+
+				\uIf{$direction $ == $HAUT$}{
+					$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide+1]$
+					$this.grid[posXVide][posYVide+1] \leftarrow -1$
+					$this.posYVide++$
+				} \uElseIf{$direction $ == $DROITE$}{
+					$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide-1][posYVide]$
+					$this.grid[posXVide-1][posYVide] \leftarrow -1$
+					$this.posYVide--$
+				} \uElseIf{$direction $ == $BAS$}{
+					$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide-1]$
+					$this.grid[posXVide][posYVide-1] \leftarrow -1$
+					$this.posYVide--$
+				} \uElseIf{$direction $ == $GAUCHE$}{
+					$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide+1][posYVide]$
+					$this.grid[posXVide+1][posYVide] \leftarrow -1$
+					$this.posYVide++$
+				}
+				\Return true
+		\end{algorithm}
+
+		\subsection{Algorithme de mélange}
+
+
+
+		\subsection{Déplacement d'une case}
+
+
+
+		\subsection{Déterminer si la partie est terminée}
+
+
+
+	\section{Tests unitaires}
+
+
+
+	\section{Script de compilation (build.sh)}

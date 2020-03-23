@@ -35,7 +35,7 @@ public class TaquinTest {
 	}
 
 	@Test
-	public void fnished() {
+	public void finished() {
 		TaquinGrid gridCreate = new TaquinGrid(10, 10, false);
 		TaquinGrid gridRandomize = new TaquinGrid(10, 10);
 
