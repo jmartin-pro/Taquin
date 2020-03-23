@@ -144,7 +144,7 @@
 \RequirePackage{setspace} % Permet de changer l'interligne
 \RequirePackage{tabularx} % Permet d'utiliser les tableaux
 \RequirePackage{multirow}
-\RequirePackage[linesnumbered,ruled,french,onelanguage]{algorithm2e}
+\RequirePackage[linesnumbered,ruled,onelanguage]{algorithm2e}
 \RequirePackage{wrapfig} % Permet d'utiliser les wrapfigure
 \RequirePackage{xcolor} % Permet d'utiliser les couleurs
 
