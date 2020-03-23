@@ -114,7 +114,7 @@
 % \end{document}
 
 \NeedsTeXFormat{LaTeX2e}%
-\ProvidesClass{BetterDocument}[2019/08/20 BetterDocument, V0.28.1]%
+\ProvidesClass{BetterDocument}[2019/08/20 BetterDocument, V0.29.0]%
 
 \DeclareOption*{\let\classname\CurrentOption}%
 \ProcessOptions\relax%
