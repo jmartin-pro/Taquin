@@ -113,8 +113,17 @@
 
 
 	\section{Tests unitaires}
-		Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importante dans tout le déroulement principale du jeu.\\
-		Toutes ces méthodes citées sont alors testées et validées grâce aux testes unitaires.\\
-		Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions ainsi qu'à une vérification de déplacement afin de savoir si la direction demandé était bien appliqué.
 
-		\lstinputlisting{include/code/listingCode/testTaquinGrid.java}
+		\subsection{Quel outil ?}
+
+			Afin de réaliser les tests unitaires, nous avons décidé d'utiliser \href{https://junit.org/junit4/}{JUnit}, l'un des meilleurs framework, si ce n'est le meilleur, dans le domaine des tests unitaires en Java. Pour être exacte nous avons utilisé la version 4 de celui-ci. Pour ne citer que quelques raisons concernant ce choix on peut parler de la simplicité remarquable concernant l'écriture des tests, l'apprentissage très rapide, 3 membres du groupe ne connaissait pas le framework et pourtant tous en on compris le fonctionnement de base. On peut également noter la forte intégration que possède ce framework sur diverses plateforme (GitHub, Jenkins, ...) ce qui peut être utile dans des projets utilisants ces services, bien que ce ne soit pas le cas de la forge, il peut tout de même être utile de noter celà.
+
+			Concernant l'éxecution de ces tests, le script build.sh possède une sous commande \textit{test} permettant de lancer les différents tests. Ainsi il se charge lui même de télécharger les dépendances nécessaires, de compiler les classes de test présentes dans le dossier prévu à cet effet (\textit{test} ici), puis d'effectuer les différents tests.
+
+		\subsection{Mise en oeuvre}
+
+			Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importante dans tout le déroulement principale du jeu.\\
+			Toutes ces méthodes citées sont alors testées et validées grâce aux testes unitaires.\\
+			Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions ainsi qu'à une vérification de déplacement afin de savoir si la direction demandé était bien appliqué.
+
+			%\lstinputlisting{include/code/listingCode/testTaquinGrid.java}
