@@ -2,27 +2,30 @@
 
 	\section{TaquinGrid}
 
-		Tout d'abord, voici la class TaquinGrid qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore dire si le joueur à gagner ou pas.
+		Tout d'abord, voici la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore dire si le joueur à gagner ou pas.
 
-		Cette algo mermet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille. La case \textit{-1} corresond à la case vide.
+		\subsection{Création de la grille}
 
-		\begin{algorithm}[H]
-			\caption{createGrid():void}
-			$this.grid \leftarrow $int $[this.width][this.height]$
+			Cette algorithme permet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisé en fonction de ces deux variables. Deux boules \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisé à la dernière case de la grille.\\
 
-			\For{$y = 0; y < this.height; y++$}{
-				\For{$x = 0; x < this.width; x++$}{
-					$this.grid[x][y] \leftarrow x+y*this.width+1$
+
+			\begin{algorithm}[H]
+				\caption{createGrid():void}
+				$this.grid \leftarrow $int $[this.width][this.height]$
+
+				\For{$y = 0; y < this.height; y++$}{
+					\For{$x = 0; x < this.width; x++$}{
+						$this.grid[x][y] \leftarrow x+y*this.width+1$
+					}
 				}
-			}
 
-			$this.grid[this.width-1][this.height-1] \leftarrow -1$
-		\end{algorithm}
+				$this.grid[this.width-1][this.height-1] \leftarrow -1$
+			\end{algorithm}
 
 		\subsection{Algorithme de mélange}
-			La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois. Si jamais un mouvement n'est pas possible, la boucle refera un tour permettant que le melange ce fasse bien \textit{n} fois. Une condition a été rajouté à ce mélange: si jamais la grille est déjà "terminer", la méthode est donc rappelé afin d'obtenir une grille mélangé.
 
-			Ce mélange permet d'avoir des solutions de résolutions de la grille. Si on aurait utilisé un random() simple, la grille aurais pu ne pas avoir de solution.\\
+			La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois. Tout d'abord, un nombre aléatoire est initialisé à chaque tour de la boucle \textbf{FOR}, permettant ainsi de réaliser un mouvement grâce à la méthode move(). Si jamais un mouvement n'est pas possible, la boucle rajoute un tour de plus permettant que le mélange se fasse bien \textit{n} fois. Une condition a été rajouté à ce mélange: si jamais la grille est déjà "terminer", la méthode est donc rappelé afin d'obtenir une grille mélangé.\\
+			Ce mélange évite les parties sans solutions. En effet, si on aurait utilisé un random() simple, il se pourrait que la grille n'aurais pas de solution.\\
 
 			\begin{algorithm}[H]
 				\caption{randomizeGrid(int n):void}
@@ -47,14 +50,14 @@
 						$i \leftarrow 1-i$
 					}
 				}
-
 				\uIf{$finisehd()$}{
 					$randomieGrid(int n)$
 				}
 			\end{algorithm}
 
 		\subsection{Déplacement d'une case}
-			La méthode move() permet d'effectuer des déplacement dans la grille grâce aux mouvement que l'on envoie dans la méthode (variable \textit{direction}).
+			La méthode move() permet d'effectuer des "déplacements" dans la grille grâce aux mouvement que l'on envoie dans la méthode (variable \textit{direction}).\\
+			La direction voulu est tout d'abord vérifié. Si la direction n'est pas possible, le "déplacement" ne s'éxècute pas. Un false est alors retourné. Au contraire, si un déplacement est possible, la valeur de la case est alors "échanger" avec la case vide. En effet, la valeur de la case vide, soit \textit{-1}, est alors égal à la valeur de la case voulu. Et la case que l'on veut déplacer est alors égale à la case vide (\textit{-1}). La méthode renvoie alors true, notifiant la méthode appelant que le déplacement a bien été effectuer.\\
 
 			\begin{algorithm}[H]
 				\caption{move(Direction direction):boolean}
@@ -67,7 +70,6 @@
 					} \uElseIf{$direction $== $GAUCHE$ \&\& $this.posXVide $== $this.width-1$}{
 						\Return false
 					}
-
 					\uIf{$direction $ == $HAUT$}{
 						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide+1]$
 						$this.grid[posXVide][posYVide+1] \leftarrow -1$
@@ -90,13 +92,14 @@
 
 		\subsection{Déterminer si la partie est terminée}
 
-			Cette méthode, finished(), permet de renvoyer True si la partie est terminée. Elle regarde d'abord si chaque case est égale à une suite de nombre ainsi que si la dernière case est une case vide (ce qui permet de ne pas continuer la boucle directement et ainsi donc, de gagner du temps sur l'éxécution du code). La méthode renvoie false si la partie n'est pas terminer. Cette méthode est exécuter à chaque mouvement effectuer (méthode move()).
+			Cette méthode, finished(), permet de renvoyer True si la partie est terminée. Elle est exécuté à chaque mouvement effectuer (méthode move()).\\
+			Deux boucles \textbf{FOR} sont nécessaire afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie false. A l'inverse, si la grille à une suite de nombre et que la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminé. La méthode renvoie alors true.\\
 
 			\begin{algorithm}[H]
 				\caption{finished():boolean}
 				\For{int $y = 0 ; y < this.height ; y++$}{
 					\For{int $x = 0 ; x < this.width ; x++$}{
-						\uIf{$y == this.height-1$ \&\& $x == this.width - 1 $ \&\& $this.grid[x][y] == -1$}{
+						\uIf{$y == this.height - 1$ \&\& $x == this.width - 1 $ \&\& $this.grid[x][y] == -1$}{
 							$continue$
 						}
 						\uIf{$this.grid[x][y]$ != $x+y*this.width+1$}{
@@ -110,6 +113,8 @@
 
 
 	\section{Tests unitaires}
-		Nous avons décider d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle créer la grille, déplace les cases, mélange le jeu et regarde si la partie est terminer. Elles sont donc très importante dans tout le fonctionnement principale du jeu.
+		Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importante dans tout le déroulement principale du jeu.\\
+		Toutes ces méthodes citées sont alors testées et validées grâce aux testes unitaires.\\
+		Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions ainsi qu'à une vérification de déplacement afin de savoir si la direction demandé était bien appliqué.
 
-		Toutes ces méthodes citées sont alors testées et validées grâce aux testes unitaires.
+		\lstinputlisting{include/code/listingCode/testTaquinGrid.java}
