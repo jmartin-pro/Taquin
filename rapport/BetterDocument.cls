@@ -276,7 +276,6 @@
 
 % Tabular
 \setlength{\arrayrulewidth}{0.2mm}
-\renewcommand{\arraystretch}{1}
 \setlength{\tabcolsep}{8pt}
 
 % URL et liens
