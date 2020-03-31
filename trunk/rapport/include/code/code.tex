@@ -6,7 +6,7 @@
 
 		\subsection{Création de la grille}
 
-			Cette algorithme permet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisé en fonction de ces deux variables. Deux boules \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisé à la dernière case de la grille.\\
+			Cette algorithme permet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisé en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisé à la dernière case de la grille.\\
 
 
 			\begin{algorithm}[H]
@@ -92,8 +92,8 @@
 
 		\subsection{Déterminer si la partie est terminée}
 
-			Cette méthode, finished(), permet de renvoyer True si la partie est terminée. Elle est exécuté à chaque mouvement effectuer (méthode move()).\\
-			Deux boucles \textbf{FOR} sont nécessaire afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie false. A l'inverse, si la grille à une suite de nombre et que la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminé. La méthode renvoie alors true.\\
+			Cette méthode, finished(), permet de renvoyer True si la partie est terminée. Elle est exécuté à chaque mouvement effectuer (méthode move()) permettant d'afficherune bite de dialog de fin si la partie est terminé.\\
+			Deux boucles \textbf{FOR} sont nécessaire afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie false. A l'inverse, si la grille à une suite de nombre et si la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminé. La méthode renvoie alors true.\\
 
 			\begin{algorithm}[H]
 				\caption{finished():boolean}
@@ -123,7 +123,7 @@
 		\subsection{Mise en oeuvre}
 
 			Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importante dans tout le déroulement principale du jeu.\\
-			Toutes ces méthodes citées sont alors testées et validées grâce aux testes unitaires.\\
-			Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions ainsi qu'à une vérification de déplacement afin de savoir si la direction demandé était bien appliqué.
+			Les méthodes citées ci-dessus sont alors testées et validées grâce aux testes unitaires.\\
+			Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions. Une fois le déplacement effectuer, nous avons alors testé si le mouvement qui vient d'être fait s'est réalisé. Pour cela, nous vérifions donc si la case vide (\textit{TaquinGrid.EMPTY_SQUARE}) est bien à l'endroit qu'elle devrait être.
 
 			%\lstinputlisting{include/code/listingCode/testTaquinGrid.java}
