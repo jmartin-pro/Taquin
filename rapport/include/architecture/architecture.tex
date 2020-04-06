@@ -14,7 +14,7 @@
 
 		\begin{description}
 			\item [rapport:] contient ce rapport sous latex
-			\item [res:] contient les ressources du jeu, ce qui correspond à l’image par défaut pour le taquin
+			\item [res:] contient les ressources du jeu, c'est-à-dire l’image par défaut pour le taquin
 			\item [src:] contient le code source de l’application
 			\item [test:] contient le code se chargeant des tests unitaires
 			\item [build.sh:] fichier de compilation du taquin.
@@ -28,8 +28,8 @@
 		\end{figure}
 
 		\begin{description}
-			\item [component:] contient les classes des différents modes qui composent l’application.
-			\item [core:] contient le cœur du jeu du taquin, qui est commun à tout les modes de jeu, ainsi que la classe qui énumère les directions
+			\item [component:] contient les diiférents composants de l’application.
+			\item [core:] contient le cœur du jeu du taquin, non dépendant de l'affichage graphique, ainsi que la classe qui énumère les directions
 			\item [observer:] contient les classes relatives à l'implémentation du pattern Observer
 			\item [window:] contient les classes permettant de gérer ce qui se rapporte à la fenêtre de jeu et des boites de dialogues
 			\item [Main.java:] classe exécutable du projet.
@@ -45,17 +45,14 @@
 		\label{Mise en place du M-VC}
 	\end{figure}
 
-	Nous avons la classe \textit{TaquinGrid} représente le modèle de l'application, puisqu'il s'agit du fonctionnement du taquin, donc la partie interne de l'application. Ces traitements sont absolument transparents pour l'utilisateur. Peu importe le mode d'affichage du jeu, le fonctionnement du taquin sera le même.
+	Nous avons la classe \textit{TaquinGrid} qui est le modèle pour une grille de jeu. Tous les traitements sont absolument identiques peu importe la vue. On utilisera la même méthode pour déplacer une case, par exemple, peu importe qu'il s'agisse d'un affichage en console ou en fenêtre.
 
-	Nous avons d'un autre coté, tout le package compoment, qui lui, représente à la fois les différentes vues de l'application et les contrôleurs. Dans le taquin, le modèle et le contrôleur sont intimement liés puisque un objet contrôleur pour notre taquin ne servira que pour le taquin. C'est pour cela que nous avons réalisé un couplage entre ces deux objets.
-
-	Nous retrouvons dans le taquin trois vues-contrôleurs:
-
+	Nous avons d'un autre coté, tout le package compoment, qui lui, représente à la fois les différentes vues de l'application qui jouent également le role de contrôleurs. Nous avons décidé de concevoir trois vues-controleurs différents :
 
 	\begin{itemize}
-		\item [mode console:] vue-contrôleur représentée par la classe \textit{ConsoleTaquinGrid}
-		\item [mode image:] vue-contrôleur représentée par la classe \textit{ImageTaquinGrid}
-		\item [mode nombre:] vue-contrôleur représenté par la classe \textit{NumberTaquinGrid}
+		\item [Pour le monde console:] vue-controleur représentée par la classe \textit{ConsoleTaquinGrid}
+		\item [Pour le mode image:] vue-controleur représentée par la classe \textit{ImageTaquinGrid}
+		\item [Pour le mode nombre:] vue-controleur représentée par la classe \textit{NumberTaquinGrid}
 	\end{itemize}
 
-	La classe mère \textit{AbstractGUITaquinGrid} n'est pas un contrôleur. Il ne s'agit que d'une vue regroupant les parties communes aux classes \textit{ImageTaquinGrid} et \textit{NumberTaquinGrid}.
+	Pour être plus précis, la classe mère \textit{AbstractGUITaquinGrid} est un contrôleur parent aux classes \textbf{ImageTaquinGrid} et \textbf{NumberTaquinGrid}. Ces deux dernières ne font que de redéfinir la manière dont nous affichons l'information grâce à la méthode \textit{void paintComponent(Graphics)}
