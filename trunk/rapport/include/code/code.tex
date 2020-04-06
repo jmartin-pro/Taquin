@@ -2,11 +2,11 @@
 
 	\section{TaquinGrid}
 
-		Tout d'abord, voici la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore notifier à l'aide d'un boolean si le joueur à gagné ou non.
+		Commençons par parler de la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore notifier à l'aide d'un boolean si le joueur à gagné ou non.
 
 		\subsection{Création de la grille}
 
-			Cette algorithme permet de créer la grille du taquin. Le constructeur de la classe \textbf{TaquinGrid} est avant tout appelé, permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisée en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisée à la dernière case de la grille.
+			Cette algorithme permet de créer la grille du taquin. Lors de l'appel au constructeur de la classe \textbf{TaquinGrid}, nous lui fournissons une \textit{width} et une \textit{height} pour connaitre les dimensions de la grille à créer. La grille est alors initialisée en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille avec les bons numéros. La valeur \textit{-1}, correspondant à la case vide, est alors initialisée à la dernière case de la grille.
 
 			\begin{algorithm}[H]
 				\caption{createGrid():void}
@@ -23,7 +23,7 @@
 
 		\subsection{Algorithme de mélange}
 
-			La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois. Tout d'abord, un nombre aléatoire est initialisé à chaque tour de la boucle \textbf{FOR}, permettant ainsi de réaliser un mouvement grâce à la méthode move(). Si jamais un mouvement n'est pas possible, la boucle rajoute un tour de plus permettant ainsi, de mélanger la grille \textit{n} fois. Une condition a été rajoutée à ce mélange: si jamais la grille est déjà "terminer", la méthode est donc rappelée afin d'obtenir une grille mélangée. Ce mélange évite donc une partie sans solutions. En effet, si on aurait utilisé un \textit{random} simple, il se pourrait que la grille n'aurait pas de solution.\\
+			La méthode \textit{randomizeGrid(int)} permet de mélanger la grille en déplaçant les cases \textit{n} fois dans des directions choisies au hasard. Un nombre aléatoire est donc tiré à chaque tour de la boucle \textbf{FOR}, permettant ainsi de représenter un mouvement qui sera effectué grâce à la méthode \textit{move()}. Si jamais un mouvement n'est pas possible, par exemple parce qu'il n'y a pas de case à déplacer dans la direction souhaitée, la boucle ajoute un tour de plus permettant ainsi, de vraiment mélanger la grille \textit{n} fois. Une condition a été rajoutée à la fin de ce mélange: si jamais la grille est déjà "terminée", la méthode est de nouveau rappelée afin d'obtenir une grille mélangée. Ce type de mélange permet d'éviter une partie sans aucune solution. En effet, si nous avions placé les nombres de manière totalement aléatoire, il se pourrait que la grille n'ait pas de solution.
 
 			\begin{algorithm}[H]
 				\caption{randomizeGrid(int n):void}
@@ -45,17 +45,20 @@
 					}
 
 					\uIf{$!move(dir)$}{
-						$i \leftarrow 1-i$
+						$i \leftarrow i-1$
 					}
 				}
 				\uIf{$finisehd()$}{
-					$randomieGrid(int n)$
+					$randomieGrid(n)$
 				}
 			\end{algorithm}
 
+			Comme on peut le voir, la méthode move retourne un boolean afin de savoir si le mouvement a été effectué ou non.
+
 		\subsection{Déplacement d'une case}
-			La méthode \textbf{move} permet d'effectuer des "déplacements" dans la grille grâce au mouvement que l'on donne en paramètre (variable \textit{direction}).\\
-			La direction voulue est tout d'abord vérifiée. Si la direction n'est pas possible, le "déplacement" ne s'éxècute pas. Un \textit{false} est alors retourné. Au contraire, si un déplacement est possible, la valeur de la case est alors "échanger" avec la case vide. En effet, la valeur de la case vide, soit \textit{-1}, est alors égal à la valeur de la case voulu. Et la case que l'on veut déplacer est alors égale à la case vide (\textit{-1} appelé aussi \textit{TaquinGrid.EMPTY\_SQUARE}). La méthode renvoie alors \textit{true}, notifiant la méthode appelant que le déplacement a bien été effectué.\\
+
+			La méthode \textit{move(Direction)} permet d'effectuer des "déplacements" dans la grille grâce à la direction que l'on donne en argument.\\
+			Tout d'abord nous avons effectué des vérifications sur la grille en fonction du mouvement demandé. Si celui-ci n'est pas possible, le "déplacement" ne s'éxècute pas et la méthode retourne false, signifiant que le mouvement n'a pas eu lieu. Au contraire, si un déplacement est possible, la valeur de la case est alors "échangée" avec la case vide. En effet, la valeur de la case vide, soit \textit{-1}, est alors égale à la valeur de la case voulue. La case que l'on veut déplacer est alors égale à la case vide, c'est-à-dire (\textit{-1}, que nous avons nommé sous le nom de la constante \textit{TaquinGrid.EMPTY\_SQUARE}). La méthode renvoie alors true, notifiant la méthode appelante que le déplacement a bien été effectué.
 
 			\begin{algorithm}[H]\label{alg:move}
 				\caption{move(Direction direction):boolean}
@@ -69,29 +72,29 @@
 						\Return false
 					}
 					\uIf{$direction $ == $HAUT$}{
-						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide+1]$
-						$this.grid[posXVide][posYVide+1] \leftarrow -1$
-						$this.posYVide++$
+						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide+1]$\;
+						$this.grid[posXVide][posYVide+1] \leftarrow -1$\;
+						$this.posYVide++$\;
 					} \uElseIf{$direction $ == $DROITE$}{
-						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide-1][posYVide]$
-						$this.grid[posXVide-1][posYVide] \leftarrow -1$
-						$this.posYVide--$
+						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide-1][posYVide]$\;
+						$this.grid[posXVide-1][posYVide] \leftarrow -1$\;
+						$this.posYVide--$\;
 					} \uElseIf{$direction $ == $BAS$}{
-						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide-1]$
-						$this.grid[posXVide][posYVide-1] \leftarrow -1$
-						$this.posYVide--$
+						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide][posYVide-1]$\;
+						$this.grid[posXVide][posYVide-1] \leftarrow -1$\;
+						$this.posYVide--$\;
 					} \uElseIf{$direction $ == $GAUCHE$}{
-						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide+1][posYVide]$
-						$this.grid[posXVide+1][posYVide] \leftarrow -1$
-						$this.posYVide++$
+						$this.grid[posXVide][posYVide] \leftarrow this.grid[posXVide+1][posYVide]$\;
+						$this.grid[posXVide+1][posYVide] \leftarrow -1$\;
+						$this.posYVide++$\;
 					}
 					\Return true
 			\end{algorithm}
 
 		\subsection{Déterminer si la partie est terminée}
 
-			Cette méthode, \textit{finished}, permet de renvoyer \textit{true} si la partie est terminée. Elle est exécutée à chaque mouvement effectué (méthode \textit{move}) permettant d'afficher une boite de dialogue de fin si la partie est terminée.\\
-			Deux boucles \textbf{FOR} sont nécessaires afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie \textit{false}. A l'inverse, si la grille à une suite de nombre et si la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminée. La méthode renvoie alors \textit{true}.
+			Cette méthode, \textit{finished}, permet de renvoyer True si la partie est terminée. Elle est exécutée par les vues-contrôleurs à chaque mouvement effectué (méthode \textit{move}) afin d'afficher un message de fin si la partie est terminée.\\
+			Deux boucles \textbf{FOR} sont nécessaires afin de parcourir la grille. Pour vérifier si la grille est terminée nous utilisons la même méthode que dans la création de celle-ci, mais cette fois-ci, nous comparons les nombres de la grille avec celui qui devrait y être présent.
 
 			\begin{algorithm}[H]
 				\caption{finished():boolean}
