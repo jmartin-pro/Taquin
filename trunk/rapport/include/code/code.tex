@@ -2,12 +2,11 @@
 
 	\section{TaquinGrid}
 
-		Tout d'abord, voici la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore dire si le joueur à gagner ou pas.
+		Tout d'abord, voici la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore notifier à l'aide d'un boolean si le joueur à gagné ou non.
 
 		\subsection{Création de la grille}
 
-			Cette algorithme permet de créer la grille du taquin. Le constructeur de la class TaquinGrid est avant tout appelé permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisé en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisé à la dernière case de la grille.\\
-
+			Cette algorithme permet de créer la grille du taquin. Le constructeur de la classe \textbf{TaquinGrid} est avant tout appelé, permettant d'avoir les \textit{width} et \textit{height} de la grille. Puis, la grille est alors initialisé en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille de numéro. La valeur \textit{-1}, correspondant à la case vide, est alors initialisé à la dernière case de la grille.
 
 			\begin{algorithm}[H]
 				\caption{createGrid():void}
@@ -24,8 +23,7 @@
 
 		\subsection{Algorithme de mélange}
 
-			La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois. Tout d'abord, un nombre aléatoire est initialisé à chaque tour de la boucle \textbf{FOR}, permettant ainsi de réaliser un mouvement grâce à la méthode move(). Si jamais un mouvement n'est pas possible, la boucle rajoute un tour de plus permettant que le mélange se fasse bien \textit{n} fois. Une condition a été rajouté à ce mélange: si jamais la grille est déjà "terminer", la méthode est donc rappelé afin d'obtenir une grille mélangé.\\
-			Ce mélange évite les parties sans solutions. En effet, si on aurait utilisé un random() simple, il se pourrait que la grille n'aurais pas de solution.\\
+			La méthode randomizeGrid() permet de mélanger la grille \textit{n} fois. Tout d'abord, un nombre aléatoire est initialisé à chaque tour de la boucle \textbf{FOR}, permettant ainsi de réaliser un mouvement grâce à la méthode move(). Si jamais un mouvement n'est pas possible, la boucle rajoute un tour de plus permettant ainsi, de mélanger la grille \textit{n} fois. Une condition a été rajouté à ce mélange: si jamais la grille est déjà "terminer", la méthode est donc rappelé afin d'obtenir une grille mélangé. Ce mélange évite donc une partie sans solutions. En effet, si on aurait utilisé un random() simple, il se pourrait que la grille n'aurait pas de solution.
 
 			\begin{algorithm}[H]
 				\caption{randomizeGrid(int n):void}
@@ -56,10 +54,10 @@
 			\end{algorithm}
 
 		\subsection{Déplacement d'une case}
-			La méthode move() permet d'effectuer des "déplacements" dans la grille grâce aux mouvement que l'on envoie dans la méthode (variable \textit{direction}).\\
-			La direction voulu est tout d'abord vérifié. Si la direction n'est pas possible, le "déplacement" ne s'éxècute pas. Un false est alors retourné. Au contraire, si un déplacement est possible, la valeur de la case est alors "échanger" avec la case vide. En effet, la valeur de la case vide, soit \textit{-1}, est alors égal à la valeur de la case voulu. Et la case que l'on veut déplacer est alors égale à la case vide (\textit{-1}). La méthode renvoie alors true, notifiant la méthode appelant que le déplacement a bien été effectuer.\\
+			La méthode \textbf{move} permet d'effectuer des "déplacements" dans la grille grâce aux mouvement que l'on donne en paramètre (variable \textit{direction}).\\
+			La direction voulu est tout d'abord vérifié. Si la direction n'est pas possible, le "déplacement" ne s'éxècute pas. Un false est alors retourné. Au contraire, si un déplacement est possible, la valeur de la case est alors "échanger" avec la case vide. En effet, la valeur de la case vide, soit \textit{-1}, est alors égal à la valeur de la case voulu. Et la case que l'on veut déplacer est alors égale à la case vide (\textit{-1} appelé aussi \textit{TaquinGrid.EMPTY\_SQUARE}). La méthode renvoie alors true, notifiant la méthode appelant que le déplacement a bien été effectué.\\
 
-			\begin{algorithm}[H]
+			\begin{algorithm}[H]\label{alg:move}
 				\caption{move(Direction direction):boolean}
 					\uIf{$direction $ == $HAUT$ \&\& $this.posYVide $ == $this.height-1$}{
 						\Return false
@@ -92,8 +90,8 @@
 
 		\subsection{Déterminer si la partie est terminée}
 
-			Cette méthode, finished(), permet de renvoyer True si la partie est terminée. Elle est exécuté à chaque mouvement effectuer (méthode move()) permettant d'afficherune bite de dialog de fin si la partie est terminé.\\
-			Deux boucles \textbf{FOR} sont nécessaire afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie false. A l'inverse, si la grille à une suite de nombre et si la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminé. La méthode renvoie alors true.\\
+			Cette méthode, \textit{finished}, permet de renvoyer True si la partie est terminée. Elle est exécuté à chaque mouvement effectuer (méthode \textit{move}) permettant d'afficherune bite de dialog de fin si la partie est terminé.\\
+			Deux boucles \textbf{FOR} sont nécessaire afin de parcourir la grille. Si jamais la grille n'est pas une suite de nombre, donc si la grille n'est pas "terminer", la méthode renvoie false. A l'inverse, si la grille à une suite de nombre et si la dernière valeur est égale à \textit{-1}, cela signifie donc que la grille est bien terminé. La méthode renvoie alors true.
 
 			\begin{algorithm}[H]
 				\caption{finished():boolean}
@@ -110,10 +108,7 @@
 				\Return true
 			\end{algorithm}
 
-
-
 	\section{Tests unitaires}
-
 		\subsection{Quel outil ?}
 
 			Afin de réaliser les tests unitaires, nous avons décidé d'utiliser \href{https://junit.org/junit4/}{JUnit}, l'un des meilleurs framework, si ce n'est le meilleur, dans le domaine des tests unitaires en Java. Pour être exacte nous avons utilisé la version 4 de celui-ci. Pour ne citer que quelques raisons concernant ce choix on peut parler de la simplicité remarquable concernant l'écriture des tests, l'apprentissage très rapide, 3 membres du groupe ne connaissait pas le framework et pourtant tous en on compris le fonctionnement de base. On peut également noter la forte intégration que possède ce framework sur diverses plateforme (GitHub, Jenkins, ...) ce qui peut être utile dans des projets utilisants ces services, bien que ce ne soit pas le cas de la forge, il peut tout de même être utile de noter celà.
@@ -121,9 +116,55 @@
 			Concernant l'éxecution de ces tests, le script build.sh possède une sous commande \textit{test} permettant de lancer les différents tests. Ainsi il se charge lui même de télécharger les dépendances nécessaires, de compiler les classes de test présentes dans le dossier prévu à cet effet (\textit{test} ici), puis d'effectuer les différents tests.
 
 		\subsection{Mise en oeuvre}
+			Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importantes dans tout le déroulement principale du jeu.\\
+			Les méthodes citées ci-dessus sont alors testées et validées grâce aux testes unitaires.
 
-			Nous avons décidé d'effectuer des test sur la class TaquinGrid car c'est une class principal, permettant de gérer tout le jeu. En effet, elle crée la grille, déplace les cases, recherche une valeur, mélange le jeu et regarde si la partie est terminer. Toutes ces méthodes sont donc très importante dans tout le déroulement principale du jeu.\\
-			Les méthodes citées ci-dessus sont alors testées et validées grâce aux testes unitaires.\\
-			Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions. Une fois le déplacement effectuer, nous avons alors testé si le mouvement qui vient d'être fait s'est réalisé. Pour cela, nous vérifions donc si la case vide (\textit{TaquinGrid.EMPTY_SQUARE}) est bien à l'endroit qu'elle devrait être.
+			Pour la méthode des déplacements notamment, nous avons procédé à des tests de directions (voir code \ref{TestMoved}). Pour cela, une grile non mélangé est créé. La case vide (\textit{TaquinGrid.EMPTY\_SQUARE}) est donc situé à la case tout en bas à droite. Un \textbf{move} (voir code \ref{alg:move}) est alors effectué en \textit{Direction.BAS}. La case situé en haut de la case vide (9,8) est alors déplacé à la place de la case vide (9,9). L'ancienne case (9,8) contient normalement la "case vide". Le déplacement peut alors être vérifié en regardant si la case vide est bien situé en (9,8) ainsi que la valeur, anciennement contenu dans la case (9,8), est bien situé en case (9,9). Le même procédé est effectué pour toutes les \textbf{Direction} possible : "Gauche", "Haut", "Droite".
 
-			%\lstinputlisting{include/code/listingCode/testTaquinGrid.java}
+			\begin{lstlisting}[gobble=12, caption=Test Moved(), language=java, label=TestMoved]
+				public void move() {
+					TaquinGrid gridCreate = new TaquinGrid(10, 10, false);
+					int ancienneValeur;
+
+					ancienneValeur = gridCreate.getSquare(9,8);
+					Assert.assertTrue(gridCreate.move(Direction.BAS));
+					Assert.assertTrue(gridCreate.getSquare(9,8) == TaquinGrid.EMPTY_SQUARE);
+					Assert.assertTrue(gridCreate.getSquare(9,9) == ancienneValeur);
+
+					ancienneValeur = gridCreate.getSquare(8,8);
+					Assert.assertTrue(gridCreate.move(Direction.DROITE));
+					Assert.assertTrue(gridCreate.getSquare(8,8) == TaquinGrid.EMPTY_SQUARE);
+					Assert.assertTrue(gridCreate.getSquare(9,8) == ancienneValeur);
+
+					ancienneValeur = gridCreate.getSquare(8,9);
+					Assert.assertTrue(gridCreate.move(Direction.HAUT));
+					Assert.assertTrue(gridCreate.getSquare(8,9) == TaquinGrid.EMPTY_SQUARE);
+					Assert.assertTrue(gridCreate.getSquare(8,8) == ancienneValeur);
+
+					ancienneValeur = gridCreate.getSquare(9,9);
+					Assert.assertTrue(gridCreate.move(Direction.GAUCHE));
+					Assert.assertTrue(gridCreate.getSquare(9,9) == TaquinGrid.EMPTY_SQUARE);
+					Assert.assertTrue(gridCreate.getSquare(8,9) == ancienneValeur);
+				}
+			\end{lstlisting}
+
+			Nous avons aussi réalisé le test de la méthode \textit{finished}, permettant donc de savoir si la partie est terminé ou non. Une grille non mélangé est d'abord créé ainsi qu'une grille mélangé. La grille non mélangé doit alors être retourné en fini, donc doit valoir true. Pour la grille mélangé, la grille est alors non fini et donc doit valoir false. Nous savons alors que la méthode \textit{finished} fonctionne.
+
+			\begin{lstlisting}[gobble=12, language=java, caption=Teste de la méthode finished()]
+				public void finished() {
+					TaquinGrid gridCreate = new TaquinGrid(10, 10, false);
+					TaquinGrid gridRandomize = new TaquinGrid(10, 10);
+
+					Assert.assertTrue(gridCreate.finished());
+					Assert.assertFalse(gridRandomize.finished());
+				}
+			\end{lstlisting}
+
+			Un troisième test est également effectué afin d'être sûr que l'affichage de la grille est correcte. Pour cela, la méthode \textit{getSquare} est requise. Pour faire ce test, une nouvelle grille est alors créer, puis la valeur sur la dernière case de la grille est demandé. Cette valeur doit être égale au \textit{TaquinGrid.EMPTY\_SQUARE} (case vide).
+
+			\begin{lstlisting}[gobble=12, language=java, caption=Teste getSquare()]
+				public void getSquare() {
+					TaquinGrid gridCreate = new TaquinGrid(10, 10, false);
+					Assert.assertTrue(TaquinGrid.EMPTY_SQUARE == gridCreate.getSquare(9, 9));
+				}
+			\end{lstlisting}
