@@ -12,13 +12,13 @@
 
 		On y retrouve 4 dossiers et 1 fichier:
 
-		\begin{itemize}
-			\item le dossier \textit{rapport}, contenant ce rapport sous latex
-			\item le dossier \textit{res}, conteant les ressources du jeu, ce qui correspond à l’image par défaut pour le taquin
-			\item le dossier \textit{src} contenant le code source de l’application
-			\item le dossier \textit{test} contenant le code se chargeant des tests unitaires
-			\item le fichier \textit{build.sh}, qui permet l’execution de l’application.
-		\end{itemize}
+		\begin{description}
+			\item [rapport:] contient ce rapport sous latex
+			\item [res:] contient les ressources du jeu, ce qui correspond à l’image par défaut pour le taquin
+			\item [src:] contient le code source de l’application
+			\item [test:] contient le code se chargeant des tests unitaires
+			\item [build.sh:] fichier de compilatio du taquin.
+		\end{description}
 
 		Le code source du projet est situé dans le chemin \textit{src/taquin/}. Il est constitué par :
 
@@ -27,17 +27,17 @@
 			\includegraphics[width=0.5\textwidth, keepaspectratio]{img/detail.png}
 		\end{figure}
 
-		\begin{itemize}
-			\item un package \textit{component}, contenant les classes des différents modes qui composent l’application.
-			\item un package  \textit{core} contenant le cœur du jeu du taquin, qui est commun à tout les modes de jeu, ainsi que la classe qui énumère les directions
-			\item un package \textit{observer} qui constitue le pattern Observer
-			\item un package \textit{window} contenant les classes permettant de gérer ce qui se rapporte à la fenêtre de jeu et des boites de dialogues
-			\item un fichier \textit{Main.java}, qui est le fichier executable du taquin
-		\end{itemize}
+		\begin{description}
+			\item [component:] contient les classes des différents modes qui composent l’application.
+			\item [core:] contient le cœur du jeu du taquin, qui est commun à tout les modes de jeu, ainsi que la classe qui énumère les directions
+			\item [observer:] contient les classes relatives à l'implémentation du pattern Observer
+			\item [window:] contient les classes permettant de gérer ce qui se rapporte à la fenêtre de jeu et des boites de dialogues
+			\item [Main.java:] classe exécutable du projet.
+		\end{description}
 
 	\section{Mise en place du pattern M-VC}
 
-	Dans notre application, le pattern M-VC à été mis en place de la manière suivante:
+	Dans notre projet, il nous a été demandé d'utiliser le design pattern MVC. Ce design pattern a été mis en place de la manière suivante:
 
 	\begin{figure}[H]
 		\centering\includegraphics[width=1\textwidth, keepaspectratio]{img/diagramMVC.png}
@@ -45,16 +45,17 @@
 		\label{Mise en place du M-VC}
 	\end{figure}
 
-	On a d'une part la classe \textit{TaquinGrid} représente le modèle de l'application. Il s'agit du coeur du jeu, du fonctionnement du taquin, peut importe le mode d'affichage du jeu.
+	Nous avons la classe \textit{TaquinGrid} représente le modèle de l'application, puisqu'il s'agit du fonctionnement du taquin, donc la partie interne de l'application. Ces traitements sont absolument transparents pour l'utilisateur. Peut importe le mode d'affichage du jeu, le fonctionnement du taquin sera le même.
 
-	D'un autre côté, nous avons tout le package compoment, qui lui, contient les différentes vues de l'application. On retrouve dans le taquin trois vues:
+	Nous avons d'un autre coté, tout le package compoment, qui lui, représente à la fois les différentes vues de l'application et les contrôlleurs.Dans le taquin, le modèle et le contrôleur sont intimement liés puisque un objet contrôleur pour notre taquin ne servira que pour le taquin. C'est pour cela que nous avons réaliser un couplage entre ces deux objets.
+
+	Nous retrouvons dans le taquin trois vues-controleurs:
+
 
 	\begin{itemize}
-		\item le mode "console", représenté par la classe \textit{ConsoleTaquinGrid}
-		\item le mode "image", représenté par la classe \textit{ImageTaquinGrid}
-		\item enfin, le mode "nombre" représenté par la classe \textit{NumberTaquinGrid}
+		\item [mode console:] vue-controleur représentée par la classe \textit{ConsoleTaquinGrid}
+		\item [mode image:] vue-controleur représenté par la classe \textit{ImageTaquinGrid}
+		\item [mode nombre:] vue-controleur représenté par la classe \textit{NumberTaquinGrid}
 	\end{itemize}
 
-	La classe \textit{AbstractGUITaquinGrid} est uniquement une vue qui regroupe les parties communes aux classes \textit{ImageTaquinGrid} et \textit{NumberTaquinGrid}.
-
-	Ces trois classes citées ci-dessus sont également des contrôleurs puisqu'elles ....
+	La classe mère \textit{AbstractGUITaquinGrid} n'est pas un controlleur. Il ne s'agit que d'une vue regroupant les parties communes aux classes \textit{ImageTaquinGrid} et \textit{NumberTaquinGrid}.
