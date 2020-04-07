@@ -152,6 +152,8 @@
 \RequirePackage{setspace} % Permet de changer l'interligne
 \RequirePackage{tabularx} % Permet d'utiliser les tableaux
 \RequirePackage{wrapfig} % Permet d'utiliser les wrapfigure
+\RequirePackage{subcaption} % Permet d'utiliser les wrapfigure
+\RequirePackage{csquotes} % Permet d'utiliser les wrapfigure
 
 % Package non compatibles avec Beamer
 \ifthenelse{\equal{\classname}{beamer}}{}{%

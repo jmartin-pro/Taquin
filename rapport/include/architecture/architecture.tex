@@ -13,11 +13,11 @@
 		On y retrouve 4 dossiers et 1 fichier:
 
 		\begin{description}
-			\item [rapport:] contient ce rapport sous latex
-			\item [res:] contient les ressources du jeu, c'est-à-dire l’image par défaut pour le taquin
-			\item [src:] contient le code source de l’application
-			\item [test:] contient le code se chargeant des tests unitaires
-			\item [build.sh:] fichier de compilation du taquin.
+			\item [rapport:] Contient ce rapport sous latex
+			\item [res:] Contient les ressources du jeu, c'est-à-dire l’image par défaut pour le taquin
+			\item [src:] Contient le code source de l’application
+			\item [test:] Contient le code se chargeant des tests unitaires
+			\item [build.sh:] Fichier de compilation du taquin.
 		\end{description}
 
 		Le code source du projet est situé dans le chemin \textit{src/taquin/}. Il est constitué par :
@@ -28,11 +28,11 @@
 		\end{figure}
 
 		\begin{description}
-			\item [component:] contient les diiférents composants de l’application.
-			\item [core:] contient le cœur du jeu du taquin, non dépendant de l'affichage graphique, ainsi que la classe qui énumère les directions
-			\item [observer:] contient les classes relatives à l'implémentation du pattern Observer
-			\item [window:] contient les classes permettant de gérer ce qui se rapporte à la fenêtre de jeu et des boites de dialogues
-			\item [Main.java:] classe exécutable du projet.
+			\item [component:] Contient les différents composants de l’application.
+			\item [core:] Contient le cœur du jeu du taquin, non dépendant de l'affichage graphique, ainsi que la classe qui énumère les directions
+			\item [observer:] Contient les classes relatives à l'implémentation du pattern Observer
+			\item [window:] Contient les classes permettant de gérer ce qui se rapporte à la fenêtre de jeu et des boites de dialogues
+			\item [Main.java:] Classe exécutable du projet.
 		\end{description}
 
 	\section{Mise en place du pattern MVC}
@@ -45,14 +45,14 @@
 		\label{Mise en place du M-VC}
 	\end{figure}
 
-	Nous avons la classe \textit{TaquinGrid} qui est le modèle pour une grille de jeu. Tous les traitements sont absolument identiques peu importe la vue. On utilisera la même méthode pour déplacer une case, par exemple, peu importe qu'il s'agisse d'un affichage en console ou en fenêtre.
+	Nous avons la classe \textbf{TaquinGrid} qui est le modèle pour une grille de jeu. Tous les traitements sont absolument identiques peu importe la vue. On utilisera la même méthode pour déplacer une case, par exemple, peu importe qu'il s'agisse d'un affichage en console ou en fenêtre.
 
-	Nous avons d'un autre coté, tout le package compoment, qui lui, représente à la fois les différentes vues de l'application qui jouent également le role de contrôleurs. Nous avons décidé de concevoir trois vues-controleurs différents :
+	Nous avons d'un autre coté, tout le package component, qui lui, représente à la fois les différentes vues de l'application qui jouent également le rôle de contrôleurs. Nous avons décidé de concevoir trois Vues-Contrôleurs différentes :
 
 	\begin{itemize}
-		\item [Pour le monde console:] vue-controleur représentée par la classe \textit{ConsoleTaquinGrid}
-		\item [Pour le mode image:] vue-controleur représentée par la classe \textit{ImageTaquinGrid}
-		\item [Pour le mode nombre:] vue-controleur représentée par la classe \textit{NumberTaquinGrid}
+		\item [Pour le monde console:] Vue-Contrôleur représentée par la classe \textbf{ConsoletaquinGrid}
+		\item [Pour le mode image:]  Vue-Contrôleur représentée par la classe \textbf{ImagetaquinGrid}
+		\item [Pour le mode nombre:]  Vue-Contrôleur représentée par la classe \textbf{NumbertaquinGrid}
 	\end{itemize}
 
-	Pour être plus précis, la classe mère \textit{AbstractGUITaquinGrid} est un contrôleur parent aux classes \textbf{ImageTaquinGrid} et \textbf{NumberTaquinGrid}. Ces deux dernières ne font que de redéfinir la manière dont nous affichons l'information grâce à la méthode \textit{void paintComponent(Graphics)}
+	Pour être plus précis, la classe mère \textbf{AbstractGUItaquinGrid} est un contrôleur parent aux classes \textbf{ImagetaquinGrid} et \textbf{NumbertaquinGrid}. Ces deux dernières ne font que de redéfinir la manière dont nous affichons l'information grâce à la méthode \textit{void paintComponent(Graphics)}
