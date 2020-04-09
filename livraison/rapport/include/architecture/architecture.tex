@@ -20,6 +20,8 @@
 			\item [build.sh:] Fichier de compilation du taquin.
 		\end{description}
 
+		On notera en réalité la présence supplémentaire d'un dossier \textit{doc} contenant la Javadoc ainsi que d'un dossier \textit{dist} contenant le jar exécutable. Ceux-ci ne sont pas notés car ils sont générés avec le script de compilation.
+
 		Le code source du projet est situé dans le chemin \textit{src/taquin/}. Il est constitué par :
 
 		\begin{figure}[H]
@@ -37,7 +39,7 @@
 
 	\section{Mise en place du pattern MVC}
 
-	Dans notre projet, il nous a été demandé d'utiliser le design pattern MVC. Ce design pattern a été mis en place de la manière suivante:
+	Dans notre projet, il nous a été demandé d'utiliser le design pattern MVC. Il a été mis en place de la manière suivante:
 
 	\begin{figure}[H]
 		\centering\includegraphics[width=1\textwidth, keepaspectratio]{img/diagramMVC.png}
@@ -45,14 +47,14 @@
 		\label{Mise en place du M-VC}
 	\end{figure}
 
-	Nous avons la classe \textbf{TaquinGrid} qui est le modèle pour une grille de jeu. Tous les traitements sont absolument identiques peu importe la vue. On utilisera la même méthode pour déplacer une case, par exemple, peu importe qu'il s'agisse d'un affichage en console ou en fenêtre.
+	Nous avons la classe \textbf{TaquinGrid} qui est le modèle pour une grille de jeu. Tous les traitements sont donc absolument identiques peu importe la vue. On utilisera, par exemple; la même méthode pour déplacer une case peu importe qu'il s'agisse d'un affichage en console ou en fenêtre.
 
-	Nous avons d'un autre coté, tout le package component, qui lui, représente à la fois les différentes vues de l'application qui jouent également le rôle de contrôleurs. Nous avons décidé de concevoir trois Vues-Contrôleurs différentes :
+	Nous avons d'un autre coté, tout le package component, qui lui, contient les différentes vues de l'application qui jouent également le rôle de contrôleurs. Nous avons décidé de concevoir trois Vues-Contrôleurs différentes :
 
 	\begin{itemize}
-		\item [Pour le monde console:] Vue-Contrôleur représentée par la classe \textbf{ConsoletaquinGrid}
-		\item [Pour le mode image:]  Vue-Contrôleur représentée par la classe \textbf{ImagetaquinGrid}
-		\item [Pour le mode nombre:]  Vue-Contrôleur représentée par la classe \textbf{NumbertaquinGrid}
+		\item [Pour le monde console:] Vue-Contrôleur représentée par la classe \textbf{ConsoleTaquinGrid}
+		\item [Pour le mode image:]  Vue-Contrôleur représentée par la classe \textbf{ImageTaquinGrid}
+		\item [Pour le mode nombre:]  Vue-Contrôleur représentée par la classe \textbf{NumberTaquinGrid}
 	\end{itemize}
 
 	Pour être plus précis, la classe mère \textbf{AbstractGUItaquinGrid} est un contrôleur parent aux classes \textbf{ImagetaquinGrid} et \textbf{NumbertaquinGrid}. Ces deux dernières ne font que de redéfinir la manière dont nous affichons l'information grâce à la méthode \textit{void paintComponent(Graphics)}
