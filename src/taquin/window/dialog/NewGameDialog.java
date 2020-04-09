@@ -77,6 +77,7 @@ public class NewGameDialog extends AbstractDialog {
 
 	/**
 	 * Récupère la largeur sélectionnée par l'utilisateur
+	 * @return la largeur séléctionée dans la boite de dialogue, null si la boite de dialogue n'a pas été validée
 	 */
 	public Integer getSelectedWidth() {
 		return this.widthSelected;
@@ -84,6 +85,7 @@ public class NewGameDialog extends AbstractDialog {
 
 	/**
 	 * Récupère la hauteur sélectionnée par l'utilisateur
+	 * @return la hauteur séléctionée dans la boite de dialogue, null si la boite de dialogue n'a pas été validée
 	 */
 	public Integer getSelectedHeight() {
 		return this.heightSelected;
