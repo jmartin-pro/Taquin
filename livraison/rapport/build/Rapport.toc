@@ -1,0 +1,49 @@
+\global \c@tocdepth 2\relax 
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {french}{}
+\defcounter {refsection}{0}\relax 
+\thispagestyle {empty}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Présentation du projet}{1}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Organisation du projet}{2}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A}Gestion du projet}{2}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {i}Gestionnaire de version}{2}{subsection.2.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {ii}Trello}{2}{subsection.2.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {iii}Discord}{3}{subsection.2.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B}Répartition des fonctionnalités}{4}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Architecture du projet}{5}{chapter.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A}Arborescence du projet}{5}{section.3.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B}Mise en place du pattern MVC}{6}{section.3.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Aspects techniques}{7}{chapter.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A}TaquinGrid}{7}{section.4.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {i}Création de la grille}{7}{subsection.4.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {ii}Algorithme de mélange}{7}{subsection.4.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {iii}Déplacement d'une case}{8}{subsection.4.1.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {iv}Déterminer si la partie est terminée}{9}{subsection.4.1.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B}Tests unitaires}{10}{section.4.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {i}Quel outil ?}{10}{subsection.4.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {ii}Mise en oeuvre}{10}{subsection.4.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusion}{12}{chapter.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A}Avis général}{12}{section.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B}Éléments à améliorer}{12}{section.5.2}%
