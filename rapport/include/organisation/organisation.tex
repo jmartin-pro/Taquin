@@ -8,6 +8,22 @@
 
 			Tout d'abord, nous pouvons citer l'utilisation d'un gestionnaire de version afin de permettre la centralisation du code et rendre le travail en équipe bien plus efficace. Le choix de celui-ci étant imposé (\textit{Subversion}), il n'est pas nécessaire d'en parler plus longtemps.
 
+		\subsection{Compilation}
+
+			Nous avons décidé de réutiliser un script de compilation déja créé lors d'un précédent TP noté en Java. Il s'agit de \textbf{build.sh}. Celui-ci possède différentes sous-commandes très utiles permettant d'effectuer les tâches courantes sur le projet. En voici la liste :
+
+			\begin{description}
+				\item[build]{Compile le projet}
+				\item[clean]{Supprime tous les dossiers générés (build, doc, dist, ...)}
+				\item[deploy]{Compile et package le projet en un jar exécutable}
+				\item[javadoc]{Génère la Javadoc du projet}
+				\item[run]{Lance le projet. On peut passer des arguments en utilisant \textit{--args "arg0 arg1"}. Exemple : \textit{./build.sh --args "10 10"}}
+				\item[test]{Lance les différents tests unitaires}
+				\item[test]{Genère un Zip du projet}
+			\end{description}
+
+			Le script est facilement adaptable. Il suffit de modifier les quelques constantes au début de celui-ci.
+
 		\subsection{Trello}
 
 			Concernant la répartition et le listage du travail à effectuer, nous avons fait le choix d'utiliser \href{https://trello.com}{Trello}, une plateforme qui nous permet d'utiliser des tableaux pour planifier un projet.
