@@ -2,11 +2,11 @@
 
 	\section{TaquinGrid}
 
-		Commençons par parler de la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore notifier à l'aide d'un booléen si le joueur à gagné ou non.
+		Commençons par parler de la classe \textit{TaquinGrid} qui permet de créer et de gérer la grille, que cela soit pour mélanger, effectuer les déplacements, ou encore vérifier si le joueur à gagné ou non.
 
 		\subsection{Création de la grille}
 
-			Cette algorithme permet de créer la grille du taquin. Lors de l'appel au constructeur de la classe \textbf{TaquinGrid}, nous lui fournissons une \textit{width} et une \textit{height} pour connaître les dimensions de la grille à créer. La grille est alors initialisée en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille avec les bons numéros. La valeur \textit{-1}, correspondant à la case vide, est alors initialisée à la dernière case de la grille.
+			Cet algorithme permet de créer la grille du taquin. Lors de l'appel au constructeur de la classe \textbf{TaquinGrid}, nous lui fournissons une \textit{width} et une \textit{height} pour connaître les dimensions de la grille à créer. La grille est alors initialisée en fonction de ces deux variables. Deux boucles \textbf{FOR} sont alors nécessaires afin de remplir la grille avec les bons numéros. La valeur \textit{-1}, correspondant à la case vide, est alors initialisée à la dernière case de la grille.
 
 			\begin{algorithm}[H]
 				\caption{createGrid():void}
@@ -48,8 +48,8 @@
 						$i \leftarrow i-1$
 					}
 				}
-				\uIf{$finisehd()$}{
-					$randomieGrid(n)$
+				\uIf{$finished()$}{
+					$randomizeGrid(n)$
 				}
 			\end{algorithm}
 
@@ -125,6 +125,7 @@
 			Pour la méthode des déplacements notamment, nous avons procédé à des tests de direction (voir code \ref{TestMoved}). Pour cela, une grille non mélangée est créée. La case vide (\textit{TaquinGrid.EMPTY\_SQUARE}) est donc située à la case tout en bas à droite. Un \textbf{move} (voir code \ref{alg:move}) est alors effectué en \textit{Direction.BAS}. La case située en haut de la case vide (9,8) est alors déplacée à la place de la case vide (9,9). L'ancienne case (9,8) contient normalement la "case vide". Le déplacement peut alors être vérifié en regardant si la case vide est bien placée en (9,8) ainsi que la valeur, anciennement contenue dans la case (9,8), est bien située en case (9,9). Le même procédé est effectué pour toutes les \textbf{Directions} possibles : "Gauche", "Haut", "Droite".
 
 			\begin{lstlisting}[gobble=12, caption=Test Moved(), language=java, label=TestMoved]
+				@Test
 				public void move() {
 					TaquinGrid gridCreate = new TaquinGrid(10, 10, false);
 					int ancienneValeur;
